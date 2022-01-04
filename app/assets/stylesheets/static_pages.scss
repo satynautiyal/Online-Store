@@ -1,0 +1,87 @@
+//Image Slider
+.scroller {
+    div {
+      text-align: center;
+      font-size: 30px;
+    }
+}
+
+  .slick-slide {
+    border-radius: 5px;
+    margin: 0 17px;
+  }
+  
+  .bottom-image
+  {
+      margin:auto;
+      box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
+      height: 80px;
+      width: 100px;
+  }
+  .slick-next::before {
+    color: black!important;
+    font-size: 55px!important;
+    opacity: 0.2!important;
+    margin-left: -155px!important;
+  }
+  .slick-prev::before
+  {
+    color: black!important;
+    font-size: 55px!important;
+    opacity: 0.2!important;
+  }
+  
+  .slick-next {
+    border-radius: 5px;
+    font-size: 28px;
+    right: -78px!important;
+  }
+  
+  .slick-prev {
+    z-index: 1!important;
+    left:-15px!important;
+    font-size: 28px;
+  }
+  .slick-arrow
+  {
+      background-color: transparent!important;
+      font-size: 26px;
+  }
+  
+  .cards:hover
+  {
+      transform:scale(1.03);
+  }
+  .addhead
+  {
+    width: auto;
+    margin: auto;
+    margin-top: 10px;
+    padding: 10px 20px;
+  }
+  .head{
+    text-transform: uppercase;
+    color: #3e4152;
+    letter-spacing: .15em;
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  .cards
+  {
+  overflow: hidden;
+  width: 200px;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
+  border: 1px solid #f2f2f2;
+  background-color: white;
+  }
+  .card-body
+  {
+    width: auto!important;
+    height: auto;
+    border-radius: 6px;
+    font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+  }

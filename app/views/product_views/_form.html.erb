@@ -1,0 +1,27 @@
+<%= form_with(model: product_view) do |form| %>
+  <% if product_view.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product_view.errors.count, "error") %> prohibited this product_view from being saved:</h2>
+
+      <ul>
+        <% product_view.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :viewable_id %>
+    <%= form.text_field :viewable_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_ip %>
+    <%= form.text_field :user_ip %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

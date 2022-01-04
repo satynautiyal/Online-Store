@@ -1,0 +1,62 @@
+ <div class="grid">
+    <div role="alert" class="col-span-5 mx-auto">
+    <% if user_signed_in? %>
+        <!--For Admin -->
+        <% if current_user.role == "admin" %>
+         <div id="notification-admin-alert-area">
+            <div class="grid grid-cols-12 gap-2">
+              <div class="col-span-2" id="notification-admin-alert-icon"></div>
+              <div class="col-span-10">
+                <div class="text-base leading-6 font-medium text-gray-700" id="notification-admin-alert-title"></div>
+                <div class='text-sm leading-5 text-gray-600' id="notification-admin-alert-content"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <!-- For All Buyers -->
+        <% if current_user.role =="buyer" %>
+          <div id="notification-buyer-alert-area">
+            <div class="grid grid-cols-12 gap-2">
+              <div class="col-span-2" id="notification-buyer-alert-icon"></div>
+              <div class="col-span-10">
+                <div class="text-base leading-6 font-medium text-gray-700" id="notification-buyer-alert-title"></div>
+                <div class='text-sm leading-5 text-gray-600' id="notification-buyer-alert-content"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>  
+        <!-- For All Sellers -->
+        <% if current_user.role =="seller" %>
+          <div id="notification-seller-alert-area">
+            <div class="grid grid-cols-12 gap-2">
+              <div class="col-span-2" id="notification-seller-alert-icon"></div>
+              <div class="col-span-10">
+                <div class="text-base leading-6 font-medium text-gray-700" id="notification-seller-alert-title"></div>
+                <div class='text-sm leading-5 text-gray-600' id="notification-seller-alert-content"></div>
+              </div>
+            </div>admin-
+          </div>
+        <% end %>
+        <!--For Specific User -->
+         <div id="notification-specific_user-alert-area"  class="specific-user-notification-alert">
+            <div class="grid grid-cols-12 gap-2">
+              <div class="col-span-2" id="notification-user<%=current_user.id%>-alert-icon"></div>
+              <div class="col-span-10">
+                <div class="text-base leading-6 font-medium text-gray-700" id="notification-user<%=current_user.id%>-alert-title"></div>
+                <div class='text-sm leading-5 text-gray-600' id="notification-user<%=current_user.id%>-alert-content"></div>
+              </div>
+            </div>
+          </div>
+        <!-- Notification For All -->
+         <div id="notification-all-alert-area">
+            <div class="grid grid-cols-12 gap-2">
+              <div class="col-span-2" id="notification-all-alert-icon"></div>
+              <div class="col-span-10">
+                <div class="text-base leading-6 font-medium text-gray-700" id="notification-all-alert-title"></div>
+                <div class='text-sm leading-5 text-gray-600' id="notification-all-alert-content"></div>
+              </div>
+            </div>
+          </div>
+    <% end %>
+    </div>
+  </div>

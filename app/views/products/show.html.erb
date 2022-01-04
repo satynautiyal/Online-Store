@@ -1,0 +1,21 @@
+<div class="container mx-auto mt-4">
+  <p id="notice"><%= notice %></p>
+
+  <div class="text-5xl">
+    <div class="float-left h-12 mr-4">
+      <% if @product.main_image.attached? %>
+        <%= image_tag @product.main_image, class:"h-full" %>
+      <% else %>
+       <%= image_tag image_url("no_image.jpg"), class:"h-full" %>
+      <% end %>
+    </div>
+    <div id="product-name">
+      <%= @product.name %>
+    </div>
+  </div>
+  
+  <%= link_to 'Edit', edit_product_path(@product),class:"text-2xl text-blue-500" if user_signed_in? && policy(@product).edit? %>
+  <%= render partial: 'product_variants/all_product_variant'%>
+</div>
+
+ 

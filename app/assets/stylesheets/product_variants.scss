@@ -1,0 +1,40 @@
+// Place all the styles related to the product_variants controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+//Image Slider
+.scroller {
+    div {
+      text-align: center;
+      font-size: 30px;
+    }
+  }
+  
+  .bottom-image
+  {
+      margin:auto;
+      box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
+      height: 80px;
+      width: 100px;
+  }
+  .slick-prev::before, .slick-next::before {
+    color: #000;
+  }
+  
+  .slick-next {
+    right: -5px;
+    color:black;
+  }
+  
+  .slick-prev {
+    left: -5px;
+    color: black;
+  }
+  .slick-arrow
+  {
+      background-color: black!important;
+      font-size: 16px;
+  }
+  
+  
+  

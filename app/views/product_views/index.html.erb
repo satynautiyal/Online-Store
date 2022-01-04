@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Product Views</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Viewable</th>
+      <th>User ip</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @product_views.each do |product_view| %>
+      <tr>
+        <td><%= product_view.viewable_id %></td>
+        <td><%= product_view.user_ip %></td>
+        <td><%= link_to 'Show', product_view %></td>
+        <td><%= link_to 'Edit', edit_product_view_path(product_view) %></td>
+        <td><%= link_to 'Destroy', product_view, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product View', new_product_view_path %>

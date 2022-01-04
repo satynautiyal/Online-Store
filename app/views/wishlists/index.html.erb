@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+
+<div class="grid grid-cols-12 gap-4">
+  <div class="col-span-3">
+    <p class="text-5xl">Wishlist</p>
+  </div>
+</div>
+<div class="container mt-14">
+  <% @wishlist_product.each do |wishlist| %>
+    <div class="grid grid-cols-12 gap-3 mt-5 mb-5">
+      <div class="col-span-4 h-36 mx-auto">
+        <% if wishlist.other_images.first !=nil %>
+          <%= image_tag wishlist.other_images.first, class: "h-full"%>
+        <% else %>
+          <%= image_tag image_url("no_image.jpg"), class:"h-full" %>
+        <% end %>
+      </div>
+      <div class="col-span-5 ml-5">
+        <div class="mb-2">
+          <span class="text-sm font-medium text-gray-900">
+            <%= wishlist.product.name %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Weight
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= wishlist.weight %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Price
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= wishlist.price %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Quantity
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= wishlist.quantity %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Expiry
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= wishlist.expiry %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class=" text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Product Id
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= wishlist.product_id %>
+          </span>
+        </div>
+        <%= link_to 'Show', wishlist, class: "text-blue-600 hover:text-blue-600"  %>
+        <%= link_to 'Remove', destroy_wishlisted_product_path(product_variant_id: wishlist.product_id, user_id: current_user.id), data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+    <hr>
+  <% end %>
+</div>
+

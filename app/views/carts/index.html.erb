@@ -1,0 +1,213 @@
+<div class="container ml-12 mt-14 mx-auto">
+    <p class="text-5xl mb-4">Cart </p>    
+    <% if(@cart.length>0) %>
+            <div id="update_product_service" class="mx-auto">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center text-2xl font-semi-bold head w-full">Service Availablity</h5>
+                            <button type="button" class="btn-close btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col=4">
+                                <label for="date_in_popup">Date</label>
+                                <input type="date" id="date_in_popup" class="appearance-none block w-full bg-white text-gray-900 border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-300">
+                                <label for="duration_in_popup">Duration</label>
+                                <input type="number" step="" id="duration_in_popup" class="appearance-none block w-full bg-white text-gray-900 border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-300">
+                                </div>
+                                <div id="time_slots"class="col-8"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer float-right">
+                            <button type="button" id= "update_product_service_close" class="appearance-none w-28 bg-red-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-red-500 focus:opacity-70 focus:outline-none focus:border-gray-500">Close</button>
+                            <button type="button"  id="button_save" class="appearance-none w-28 bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:opacity-70 focus:outline-none focus:border-gray-500" onclick="update_product_service()">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <table class="divide-y divide-gray-200">
+            <thead  class="bg-gray-50">
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Product Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Description
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Item_type
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Qty
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Service Date
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Service Start Time
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Service End Time
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Total amount
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Action
+                </th>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            <% total_amount=0 %>
+            <% @cart.each do |cart| %>
+                    <tr>
+                            <% if defined?(cart.orderable.name) %>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                <%= cart.orderable.name %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                <%= cart.orderable.description %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            <% else %>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            <%= cart.orderable.product.name %>
+                                        </div>
+                                    </div>
+                                </div>
+                                </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            <%= cart.orderable.product.description %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <% end %>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            <%= cart.orderable_type %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            <% if ((cart.qty != nil)) %>
+                                                <%= number_field_tag "qty", cart.qty, onchange: "update_quanatity(this.value,#{cart.id},#{cart.orderable.price})", class: "appearance-none block w-14 h-10 mr-12 pl-1 bg-white text-gray-900 font-medium border border-gray-400 rounded-lg leading-tight focus:outline-none" %>
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <% if cart.orderable_type == "ProductService" %>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                <span id="cart_date<%=cart.id%>"><%= cart.date %></span><br>
+                                                <button class="btn btn-outline-primary text-blue-500" style="font-size:12px" onclick="update_product_service_popup('<%= cart.id %>','<%= cart.date %>','<%= cart.orderable.duration %>','<%= cart.orderable.start_time %>','<%= cart.orderable.end_time %>','<%= cart.orderable.price %>','<%= cart.duration %>')">  
+                                                Change
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <% if Order.where("date == ? AND cart == false AND ((start_time == ?) OR (start_time BETWEEN ? AND ? AND start_time != ?) OR (end_time BETWEEN ? and ? AND end_time != ?) ) ", cart.date, cart.start_time,cart.start_time,cart.end_time,cart.end_time,cart.start_time,cart.end_time,cart.start_time).length == 0 %>
+                                    <td id="start_time<%=cart.id%>" onclick="first_select_date()" class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    <%= cart.start_time.strftime("%I:%M%p") %> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td id="end_time<%=cart.id%>" onclick="first_select_date()" class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    <%= cart.end_time.strftime("%I:%M%p") %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                <% else %>
+                                    <td id="start_time<%=cart.id%>" onclick="first_select_date()" class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    <%= cart.start_time.strftime("%I:%M%p") %>   
+                                                    <div style="color:red" >Unavailable</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td id="end_time<%=cart.id%>" onclick="first_select_date()" class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    <%= cart.end_time.strftime("%I:%M%p") %>
+                                                    <div style="color:red">Unavailable</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <% @unavailable="false" %>
+                                <% end %>
+                            <% else %>
+                                 <td></td><td></td><td></td>
+                             <% end %> 
+                        <td id="amount<%=cart.id%>">
+                            <div class="flex items-center">
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        <%= cart.total_amount %>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
+                        <td>
+                            <div class="flex items-center">
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        <%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <% total_amount= total_amount+cart.total_amount %>
+            <% end %>
+            </tbody>
+        </table>
+        <% if defined? @unavailable %>
+            <button type="button" class= "appearance-none w-28 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500 opacity-60 cursor-not-allowed">Buy now</button>
+        <% else  %>
+            <button type="button" class= "appearance-none w-28 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500" onclick="redirectToPaymentCart('<%= total_amount %>')" remote="true">Buy now</button>
+        <% end %>
+    <% else %>
+        <p class="text-5xl mb-4">Your Cart is empty</p>
+    <% end %>
+</div>
+<%= javascript_pack_tag 'payment_cart'%>
+<%= javascript_pack_tag 'cart_index' %>

@@ -1,0 +1,21 @@
+<div class="main">
+  <div class="slider slider-for">
+    <% if @product_variant.other_images.length != 0 %>
+      <% @product_variant.other_images.each do |product_image| %>
+        <div class="main-image" style="height:60vh">
+          <%= image_tag product_image, class: "height:full, mx-auto", style:"min-width: 50%;max-width: 90%;min-height: 256px;max-height: 456px;"%>
+        </div>
+      <% end %>
+    <% else %>
+       <%= image_tag image_url("no_image.jpg"), class:"h-full" %>
+    <% end %>
+  </div>
+  
+  <div class="slider slider-nav">
+    <% @product_variant.other_images.each do |product_image| %>
+      <div class="bottom-image">
+        <%= image_tag product_image,class: 'h-full', style: "display: flex;justify-content: center;" %>
+      </div>
+    <% end %>
+  </div>
+</div>

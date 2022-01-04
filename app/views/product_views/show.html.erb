@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Viewable:</strong>
+  <%= @product_view.viewable_id %>
+</p>
+
+<p>
+  <strong>User ip:</strong>
+  <%= @product_view.user_ip %>
+</p>
+
+<%= link_to 'Edit', edit_product_view_path(@product_view) %> |
+<%= link_to 'Back', product_views_path %>

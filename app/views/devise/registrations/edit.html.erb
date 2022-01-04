@@ -1,0 +1,66 @@
+<div class="grid grid-cols-4 mt-4">
+  <div class="col-span-2">
+    <div class="text-center">
+          <div class="flex items-center justify-center">
+            <i class="fa fa-edit" style="font-size:48px;color:blue"></i>
+          </div>
+          <h2 class="text-4xl tracking-tight">
+            Edit your profile
+          </h2>
+    </div>
+    <div class="flex justify-center my-2 mx-4 md:mx-0 ">
+      <div class="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-full px-3 mb-6">
+                <%= f.label :name, class: "devise-label block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                <%= f.text_field :name, autofocus: true, autocomplete: "name", class:"appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none", type:'text' %>
+            </div>
+            <div class="w-full md:w-full px-3 mb-6">
+                <%= f.label :email, class: "devise-label block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %><br />
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none", type:'email' %>
+                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                <% end %>
+            </div>
+            <div class="w-full md:w-full px-3 mb-6">
+                <%= f.label :password, class: "devise-label block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                <%= f.password_field :password, autocomplete: "new-password", class: "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none", type:'password' %>
+                <% if @minimum_password_length %>
+                    <em style="color:red;font-size:12px;float:right">*<%= @minimum_password_length %> characters minimum</em>
+                <% end %>
+              </div>
+            <div class="w-full md:w-full px-3 mb-6">
+                <%= f.label :password_confirmation, class: "devise-label block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none", type:'password' %>
+            </div>
+            <div class="w-full md:w-full px-3 mb-6">
+                <%= f.label :current_password, class: "devise-label  block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %> <i class="devise-label">(we need your current password to confirm your changes)</i><br />
+                <%= f.password_field :current_password, autocomplete: "current-password", class: "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none", type:'password' %>
+            </div>
+            <div class="w-full md:w-full px-3 mb-6">
+                <button class="appearance-none block w-full bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:outline-none focus:bg-white focus:border-gray-500">Update</button>
+            </div>
+          </div>
+      <% end %>
+      </div> 
+    </div>
+  </div>
+
+  <div class="col-span-2">
+    <div class="text-center">
+            <div class="flex items-center justify-center">
+              <i class="fa fa-close" style="font-size:48px;color:red"></i>
+            </div>
+            <h2 class="text-4xl tracking-tight">
+              Cancel Account
+            </h2>
+      </div>
+      <div class="flex justify-center my-2 mx-4 md:mx-0 ">
+        <div class="w-full max-w-xl bg-white rounded-lg shadow-md p-6">
+          <p class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Unhappy with our services ?</p>
+          <%= button_to "Cancel my account", soft_destroy_user_path(id: current_user.id), data: { confirm: "Are you sure?" }, method: :post, class: "appearance-none block w-full bg-red-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-red-500 focus:outline-none focus:bg-white focus:border-gray-500" %>
+        </div> 
+      </div>  
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="container mx-auto"> 
+  <div class="grid grid-cols-4"> 
+    <div class="col-span-2">
+      <div class="max-w-md mx-auto text-base p-10 bg-white shadow-lg rounded-lg my-20 mr-5">
+          <p id="notice"><%= notice %></p>
+
+          <p class="text-sm mb-2">
+            <strong>Name:</strong>
+            <%= @product_service.name %>
+          </p>
+
+          <p class="text-sm mb-2">
+            <strong>Description:</strong>
+            <%= @product_service.description %>
+          </p>
+
+          <p class="text-sm mb-2">
+            <strong>Duration:</strong>
+             <%= @product_service.duration %>
+          </p>
+
+          <p class="text-sm mb-2">
+            <strong>Price:</strong>
+            <%= @product_service.price %>
+          </p>
+
+          <button>
+            <%= link_to 'Edit', edit_product_service_path(@product_service),class: "appearance-none block w-28 bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:outline-none focus:bg-white focus:border-gray-500"  if user_signed_in? && policy(@product_service).edit? %>
+          </button>
+          <%= render partial: 'orders/form', locals: {orderable: @product_service} %>
+      </div>
+    </div>
+    <div class="col-span-2 ">
+      <div class="max-w-md mx-auto text-base p-10 rounded-lg mt-10 ml-0">
+        <div id="time_slots"></div>
+      </div>
+    </div>
+  </div>
+</div>

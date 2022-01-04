@@ -1,0 +1,256 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require font-awesome
+ */
+ 
+//welcome page
+.addhead {
+  width: auto;
+  margin: auto;
+  margin-top: 10px;
+  padding:10px 20px;
+  border: 2px solid #f2f2f2;
+}
+
+ //index-product
+ .search-button
+ {
+  float: right;
+  margin-top: -35px;
+ }
+
+ .content {
+  margin: 0 auto;
+  max-width: 1680px;
+  padding: 8px;
+}
+
+ .number-of-unreaded-notification,.number-of-wishlist
+ {
+   position: absolute;
+   background-color: red;
+   border-radius: 50%;
+   color: white;
+   font-weight: 600;
+   margin-top: -48px;
+   margin-left: 30px;
+   height: 26px; 
+   padding: 4px 3px 0 3px;
+   text-align: center;
+   min-width: 24px;
+ }
+ .viewall-notification-button
+ {
+   background-color: white;
+   width: 100%;
+   padding: 0px 10px 0px 10px;
+ }
+ #navbar{
+  width: 100%;
+ }
+ ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.text-white:hover
+{
+  color: white!important;
+}
+.text-white{
+  color: white!important;
+}
+.text-red:hover
+{
+  color: red!important;
+}
+.text-red{
+  color: red!important;
+}
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.li  {
+  background-color: #04AA6D;
+}
+.time
+{
+    display: none;
+}
+//devise style
+.devise-label{
+  float: left!important;
+  font-size:14px;
+}
+#user_role{
+  float:left;
+  width:100%;
+  border: 1px solid #ced4da;
+  height:40px;
+  border-radius:5px;
+  padding:8px;
+}
+#user_role:focus{
+  border: 5px solid #b3d1ff;
+  padding:0px;
+}
+#notification-drop-down,#wishlist-drop-down
+{
+  background-color:white;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
+  padding:0 0 15px 0px;
+  border-radius:4px;
+  position: absolute;
+  z-index: 10;
+  display:block;
+  margin-top:49px;
+  margin-right: 0px!important;
+  margin-left: -252px;
+  width: 25vw;
+  height: auto;
+}
+.drop-down-items
+{
+  font-size: 12px;
+  width: 100%;
+  padding:10px
+}
+.drop-down-items:hover
+{
+  background-color: #f1f1f1;
+}
+.notification-header,.wishlist-header
+{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+.notification-title
+{
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  --text-opacity: 1;
+  color: #4a5568;
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+.notification-content
+{
+  text-align: left;
+  font-size: 12px;
+  font-weight: 500;
+  color:#718096;
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+#notification-seller-alert-area,#notification-admin-alert-area,#notification-buyer-alert-area,#notification-all-alert-area,.specific-seller-notification,.specific-buyer-notification,.specific-user-notification-alert
+{
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    width: 400px;
+    padding: 15px;
+    border-color: #e2e8f0;line-height: 1.5;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
+    position: absolute;
+    background-color: white;
+    margin-left: -155px;
+}
+#notification-seller-alert-area,#notification-admin-alert-area,#notification-buyer-alert-area,#notification-all-alert-area,.specific-user-notification-alert
+{
+  display: none;
+}
+.notification-link,#wishlist-link
+{
+  color: inherit;
+  text-decoration: none!important;
+  padding:0;
+}
+a:hover
+{
+  background-color: inherit!important;
+  color :inherit!important;
+}
+#update_product_service
+{
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 510px;
+  background-color: white;
+  margin-top: -250px;
+  border-radius: 5;
+  z-index: 10;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
+  padding:15px;
+}
+#product-name
+{
+  margin-left: -45px;
+}
+.card-img 
+{
+  height: 250px;
+  width: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.cards
+{
+  height: 299.5px;
+  width: 200px;
+}
+.product-image
+{
+ 
+  max-height: 245px;
+  width: auto;
+  border-radius: 4px;
+  margin: auto;
+  margin-top: 7px;
+}
+.card-product-image
+{
+  position: absolute;
+  max-height: 245px;
+  width: auto;
+  border-radius: 4px;
+  margin: auto;
+  margin-top: 7px;
+}
+body{
+  background-color: #f5f5f5;;
+}
+

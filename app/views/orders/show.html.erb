@@ -1,0 +1,61 @@
+<div class="container ml-12 w-4/12 mt-14">
+  <p class="text-5xl mb-4">Details of Order</p>
+  <p id="notice"><%= notice %></p>
+
+  <p class="mb-2">
+    <strong>User id:</strong>
+    <%= @order.user.id %>
+  </p>
+
+  <p class="mb-2">
+    <strong>User Name:</strong>
+    <%= @order.user.name.humanize %>
+  </p>
+
+  <p class="mb-2">
+    <strong>Order id:</strong>
+    <%= @order.id %>
+  </p>
+
+  <p class="mb-2">
+    <strong><%= @order.user_id %> id:</strong>
+    <%= @order.user_id %>
+  </p>
+
+  <p class="mb-2">
+    <strong><%= @order.orderable_type %> id:</strong>
+    <%= @order.orderable_id %>
+  </p>
+
+  <p class="mb-2">
+    <strong>Order Type:</strong>
+    <%= @order.orderable_type %>
+  </p>
+
+  <p class="mb-2">
+    <strong>Start time:</strong>
+    <%= @order.start_time %>
+  </p>
+
+  <p class="mb-2">
+    <strong>End Time:</strong>
+    <%= @order.end_time %>
+  </p>
+
+  <p>
+    <strong>Total amount:</strong>
+    <%= @order.total_amount %>
+  </p>
+  <p class="mb-2">
+    <strong>Total amount:</strong>
+    <%= @order.total_amount %>
+  </p>
+
+  <p class="mb-2">
+    <strong>Ordered On:</strong>
+    <%= @order.created_at %>
+  </p>
+
+  <%= link_to 'Edit', edit_order_path(@order) %> |
+  <%= link_to 'Back', orders_path %>
+</div>

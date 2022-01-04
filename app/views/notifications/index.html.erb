@@ -1,0 +1,69 @@
+<% if user_signed_in? %>
+  <div class="container mx-auto mt-14">
+  <div class="flex flex-col">
+    <p class="text-5xl">Notifications</p>
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="text-center px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  NOTIFICATIONS
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @notifications.each do |notification| %>
+                <% path_to_redirect= notification.notification.notifiable_type %>
+                <tr>
+                   <!--Redirection Path-->
+                  <% path_to_redirect= notification.notification.notifiable_type %>
+                  <td>
+                    <%= link_to path_to_redirect.constantize.find(notification.notification.notifiable_id), class: "notification-link", onclick: "readed(#{notification.notification_id},#{notification.user_id})" do %>
+                      <button class="drop-down-items mx-auto mt-2 grid grid-cols-12 gap-2">
+                        <div class="notificaion-icon col-span-2">
+                        <!--For Orders-->
+                        <% if notification.notification.notifiable_type == "Order"%>
+                            <i class='fa fa-shopping-bag' style='font-size:24px;color:#4CAF50;margin-top:4px;'></i>
+                        <!--For New Products+-->
+                        <% elsif notification.notification.notifiable_type == "ProductVariant" || notification.notification.notifiable_type == "ProductService" %>
+                            <i class='fa fa-tags' style='font-size:24px;color:orange'></i>
+                        <!--For ProductServices-->
+                        <% elsif notification.notification.notifiable_type == "User" %>
+                            <i class='fa fa-user' style='font-size:28px;color:grey;margin-top:4px;'></i>
+                        <% end %>
+                          </div>
+                          <div class="notification-body col-span-10">
+                            <% if notification.readed == true %>
+                              <div class="notification-title  leading-6 font-small text-gray-500">
+                                <%= notification.notification.title.humanize %>
+                              </div>
+                              <div class="notification-content text-sm leading-2 text-gray-500">
+                                <%= notification.notification.content.humanize %>
+                              </div>
+                            <% else %>
+                              <div class="notification-title text-base leading-6 font-medium text-gray-700">
+                                <%= notification.notification.title.humanize %>
+                              </div>
+                              <div class="notification-content text-sm leading-5 text-gray-600">
+                                <%= notification.notification.content.humanize %>
+                              </div>
+                            <% end %>
+                          </div>
+                      </button>
+                      
+                    <% end %>
+                </td>
+
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<% end %>

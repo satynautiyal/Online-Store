@@ -1,0 +1,90 @@
+<%= form_for [orderable, Order.new] do |form| %>
+  <div class="card-body">  
+    <% if(defined? orderable.quantity) %>
+    <div class="field">
+      <%= form.label :qty %>
+      <%= form.number_field :qty,id: "quantity", onkeyup: "changeTotalAmountProduct(this.value,#{orderable.price})", onchange: "changeTotalAmountProduct(this.value,#{orderable.price})", value: 1,id: "quantity", class: "appearance-none block w-auto  bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none" %>
+    </div>
+    <% end %>
+
+    <% if((defined? orderable.duration)) %>
+      <%= form.label :date %>
+      <%= form.date_field :date, id: "date", class: "appearance-none block w-full bg-white text-gray-900 border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-300" %>
+
+      <%= form.label :duration %>
+      <%= form.number_field :duration, id: "duration", class: "appearance-none block w-full bg-white text-gray-900 border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-300", value: @product_service.duration, step: @product_service.duration, onkeyup: "changeTotalAmountService(this.value,#{@product_service.duration},#{orderable.price})", onchange: "changeTotalAmountService(this.value,#{@product_service.duration},#{orderable.price})" %>
+
+      <div class="field %>">
+        <%= form.hidden_field :start_time, id: "start_time" %>
+        <%= form.hidden_field :end_time, id: "end_time" %>
+      </div>
+    <% end %> 
+
+    <div class="field">
+      <%= form.label :total_amount %>
+      <div id="total_amount_div"><%= orderable.price %></div>
+      <%= form.hidden_field :total_amount, value: orderable.price, id: "total_amount_hidden"%>
+    </div>
+    <br>
+      <% if(defined? orderable.duration) %>
+        <% if orderable.duration != nil %>
+          <% if orderable.discarded? %>
+            Unavailable
+          <% else %>
+            <%= form.submit "Add To Cart",id: "button_add_to_cart", class: "appearance-none w-28 bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:opacity-70 focus:outline-none focus:border-gray-500 opacity-60 cursor-not-allowed", name:"cart" %>
+            <% if user_signed_in? %>
+              <button type="button" id="button_buynow" class= "appearance-none w-28 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500 opacity-60 cursor-not-allowed" onclick="redirectToPayment('<%=orderable.id%>','<%=orderable.name%>','<%=orderable.price %>')">Buy now</button>
+            <% else %>
+              <%= button_to "Buy Now",user_session_path,method: :get, class: "appearance-none w-28 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500" %>
+            <% end %>
+          <% end %>
+        <% else %> 
+          <% if orderable.discarded? %>
+            Unavailable
+          <% else %>
+            <%= form.submit "Add To Cart",id: "button_add_to_cart", class: "appearance-none w-28 bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:opacity-70 focus:outline-none focus:border-gray-500", name:"cart" %>
+            <% if user_signed_in? %>
+              <button type="button" id="button_buynow" class= "appearance-none w-28 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500" onclick="redirectToPayment('<%=orderable.id%>','<%=orderable.name%>','<%=orderable.price %>')">Buy now</button>
+            <% else %>
+              <%= button_to "Buy Now",user_session_path,method: :get, class: "appearance-none w-28 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if orderable.discarded? || orderable.product.discarded? %>
+            Unavailable
+        <% else %>
+          <%= form.submit "Add To Cart",id: "button_add_to_cart", class: "appearance-none w-28 bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:opacity-70 focus:outline-none focus:border-gray-500", name:"cart" %>
+          <% if user_signed_in? %>
+            <button type="button" class= "appearance-none w-28 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500" onclick="redirectToPayment('<%=orderable.id%>','<%=orderable.product.name%>','<%=orderable.price %>')">Buy now</button>
+          <% else %>
+            <%= button_to "Buy Now",user_session_path, method: :get, class: "appearance-none w-28 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500" %>
+          <% end %>
+        <% end %>
+      <% end %> 
+      
+  </div>
+<% end %>
+
+<% if defined? orderable.duration %>
+<!--JavaScript-->
+  <script>
+    $("#duration").prop('disabled', true);
+    $("#date,#duration").on("change",function(){
+      $("#date").blur();
+      $("#duration").prop('disabled', false);
+      var duration=$("#duration").val();
+      var defaultDuration = <%= @product_service.duration %>;
+      $.ajax({
+        url: "../orders/time_slot",
+        data: "user_date="+$("#date").val()+"&duration="+duration+"&start_time=<%= orderable.start_time %>&end_time=<%= orderable.end_time %>&default_duration="+defaultDuration,
+        type: "get",
+        success: function (response) {
+      }
+      })
+    })
+  </script>
+<% end %>
+
+<%= javascript_pack_tag 'orders_form' %>
+<%= javascript_pack_tag 'payment_buy' %>

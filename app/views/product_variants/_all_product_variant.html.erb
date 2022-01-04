@@ -1,0 +1,78 @@
+<div class="container mt-14  mx-auto" style="width:75vw; margin-auto">
+  <% @product_variants.each do |product_variant| %>
+    <div class="grid grid-cols-12 gap-3 mx-auto">
+      <div class ="col-span-4  mx-auto" >
+      <%= link_to product_variant do  %>
+            <% if product_variant.main_image.attached? %>
+              <%= image_tag product_variant.main_image, class: "h-full", style: "min-width: 50%;max-width: 90%;min-height: 256px;max-height: 456px;"%>
+            <% else %>
+              <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "min-width: 50%;max-width: 60%;min-height: 256px;max-height: 456px;" %>
+            <% end %>
+      <% end %>
+      </div>
+      <div class = "mx-auto col-span-5 ml-5">
+      <%= link_to product_variant do  %>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Batch No : 
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= product_variant.batch_no %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Weight
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= product_variant.weight %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Price
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= product_variant.price %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Quantity
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= product_variant.quantity %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Expiry
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= product_variant.expiry %>
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class=" text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Product Id
+          </span>
+          <span class="text-sm font-medium text-gray-900">
+            <%= product_variant.product_id %>
+          </span>
+        </div>
+        <% if user_signed_in? && current_user.role == "admin" && product_variant.discarded? %>
+          <div class="text-center w-full  text-3xl head text-red-500">Deleted</div>
+        <% end %>
+      <% end %>
+      <%= link_to 'Delete', soft_destroy_product_variant_path(id: product_variant.id), method: :post, data: { confirm: 'Are you sure?'},class: "text-red" if user_signed_in? && policy(product_variant).soft_destroy? %>
+      <br>
+      <%= link_to 'Permanent Delete', product_variant, method: :delete, data: { confirm: 'Are you sure?'},class: "text-red" if user_signed_in? && policy(product_variant).destroy? %>
+      </div>
+    </div>
+    <hr>
+    <br>
+  <% end %>
+  <button>
+    <%= link_to 'New Product Variant', new_product_variant_path(pid: @product.id),class: "appearance-none w-full mt-2 bg-green-600 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500 text-white" if(user_signed_in? && current_user.role != "buyer") %>
+  </button>
+</div>

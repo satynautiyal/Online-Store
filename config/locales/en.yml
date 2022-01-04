@@ -1,0 +1,82 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+en:
+
+#For Models
+  #For Services
+  product_service_added_title: "New Service"
+  product_service_added_content: "%{product_service_name} Service is available by %{user_name}"
+  #For Orders
+  notification_title_order: "An order has been placed"
+  notification_content_order: "A customer has ordered a %{orderable_type}"
+  #For Product Variant
+  product_added_title: "New Product"
+  product_added_content: "%{product_name} product is available by %{user_name}"
+  stock_back_title: "Back in stock"
+  stock_back_content: " %{product_name} product is back in stock"
+
+#Controllers
+  #For Products
+  product_updated: "Product was successfully Updated."
+  product_destroyed: "Product was successfully destroyed."
+  product_created: "Product was successfully created."
+  #For Product Variants
+  product_variant_updated: "Product Variant was successfully Updated."
+  product_variant_destroyed: "Product variant was successfully destroyed."
+  product_variant_created: "Product Variant was successfully created."
+  #For Services
+  product_service_updated: "Service was successfully Updated."
+  product_service_destroyed: "Service was successfully destroyed."
+  product_service_created: "Service was successfully created."
+  #For Orders
+  order_updated: "Order was successfully Updated."
+  order_destroyed: "Order successfully destroyed."
+  order_created: "Order was successfully placed."
+  add_cart: "Added to Cart"
+  #For User
+  user_destroyed: "User was successfully destroyed."
+  #For Wishlist
+  wishlist_destroyed: "Item successfully removed from wishlist"
+  #For Payment
+  payment_failed: "Payment Failed"
+  #For Notification
+  notification_updated: "Notification was successfully Updated."
+  notification_destroyed: "Notification was successfully destroyed."
+  notification_created: "Notification was successfully created."
+  #For Notification Belong
+  notification_belong_created: "Notification Belong successfully created."
+  notification_belong_updated: "Notification Belong was successfully Updated."
+  notification_belong_destroyed: "Notification Belong was successfully Deleted."
+  #For Category
+  category_created: "Notification Belong successfully created."
+  category_updated: "Notification Belong was successfully Updated."
+  category_destroyed: "Notification Belong was successfully Deleted."

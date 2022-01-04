@@ -1,0 +1,12 @@
+<% @results.each do |results| %>
+    <hr>
+    title : 
+    <% if results.respond_to? :highlight %>
+    <%= results.highlight.name.to_a.map{|item| %Q{"#{item}"}}.join() %>
+    <%= results.highlight.description %>
+    <%else %>
+    <%= results.name %>
+    <%= results.description%>
+    <% end %>
+    <hr>
+<% end %>

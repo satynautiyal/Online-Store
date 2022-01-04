@@ -1,0 +1,55 @@
+<button type="button" class="mt-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 hover:border-grey-300 rounded" id="button-wishlist">
+  <i class="fa fa-gift" style="font-size:25px;color:red"></i>
+</button>
+<% @wishlist_products = Wishlist.where("user_id = #{current_user.id}").order('created_at DESC').limit(5)%>
+<% @wishlist_products.each do |wishlist| 
+        if defined? @wishlist_data 
+            @wishlist_data = wishlist.product_variant_id.to_s+","+@wishlist_data 
+        else 
+            @wishlist_data = wishlist.product_variant_id.to_s 
+        end 
+    end 
+    @wishlist_product = ProductVariant.where("id in(#{@wishlist_data})")
+%>
+<% if @wishlist_data != nil && @wishlist_data.length != 0 %>
+    <div id="wishlist-drop-down" style="display:none">
+        <div id="wishlist-drop-down-body">
+          <div class="wishlist-header text-center">Wishlist</div>
+            <% @wishlist_product.each do |wishlist| %>
+                <!--Redirection Path-->
+                <%= link_to wishlist, class: "wishlist-link" do %>
+                    <div class="grid grid-cols-12 gap-3 mt-5 mb-5">
+                        <div class="col-span-3">
+                            <% if wishlist.other_images.first !=nil %>
+                                <%= image_tag wishlist.other_images.first, class: "h-full"%>
+                            <% else %>
+                                <%= image_tag image_url("no_image.jpg"), class:"h-full" %>
+                            <% end %>
+                        </div>
+                        <div class="col-span-9">
+                            <button class="drop-down-items text-left mt-2 grid grid-cols-12 gap-2">
+                                <div class="wishlist-body col-span-10">
+                                    <div class="notification-title  leading-6 text-gray-900">
+                                        <%= wishlist.product.name.humanize %>
+                                    </div>
+                                    <div class="wishlist-content leading-2 text-gray-500">
+                                        Price <%= wishlist.price %>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                  
+                <% end %>
+            <% end %>
+        </div>
+        <div class="viewall-notification-button">
+          <%= button_to "View All", wishlists_path, class:"appearance-none w-full mt-2 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500", method: :get %>
+        </div>
+    </div>
+<% end %>
+<!-- Count Unreaded Notification -->
+<% count_wishlist= Wishlist.where("user_id = #{current_user.id}").count %>
+<div  class="number-of-wishlist"><%= count_wishlist %></div>
+
+ 

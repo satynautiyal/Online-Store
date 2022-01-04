@@ -1,0 +1,102 @@
+<nav id="navbar" class="bg-white shadow-lg">
+	<div class="mx-auto px-4">
+		<div class="grid grid-cols-12 mt-4">
+			<div class="col-span-3 float-right">
+				<!-- Website Logo -->
+				<%= link_to root_path,class: "py-2 px-2 float-left" do %>
+					<%= image_tag image_url('logo.png'), alt:"Logo", class:"h-auto w-32 mr-2" %>
+				<% end %>
+			</div>
+			<div class="col-span-5">
+				<%= form_tag(searches_path, method: :get ,class: "w-full mt-4 mb-8") do %>
+					<%= select_tag( :category, options_for_select(Category.pluck(:name, :id)),id: "search-dropdown",prompt: "All", selected: params[:category])%>
+					<%= text_field_tag :query, params[:query], id: "search-text", placeholder: "Search For Services", class: "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-2 px-2 leading-tight focus:outline-none" %>
+					<button type= "button" class = "search-button" id="disabled-search-button"><i class='fa fa-search py-3 px-3' style='font-size:16px'></i></button>
+					<%= button_tag class: "search-button",id: "search-button",style:"display:none" do %>
+						<i class='fa fa-search py-3 px-3' style='font-size:16px'></i>
+					<% end %>
+				<% end %>
+				
+			</div>
+			<div class="col-span-2 mt-2">
+				<!-- Primary Navbar items -->
+				<div class="hidden md:flex items-center space-x-1 float-right">
+					<% if user_signed_in? %>
+						<% if current_user.role=='admin'%>
+						<%= link_to "Users", users_path, class: "nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
+						<%= link_to "Edit Profile", edit_user_registration_path, class:"nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
+						<% else%>
+						<%= link_to "Edit Profile", edit_user_registration_path,class: "nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
+						<%= link_to "Cart", carts_index_path,class: "nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
+						<%= link_to "My Orders", orders_path,class: "nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
+						<% end%>
+				</div>
+			</div>
+			<div class="col-span-2 mt-2">
+				<!-- Secondary Navbar items -->
+				<div class="hidden md:flex items-center space-x-3 ">
+					<!--Notifications-->
+						<div class="mr-18"><%= render 'layouts/wishlist' %></div>
+						<div class="mr-18"><%= render 'layouts/notification' %></div>
+						<%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"nav-item py-2 px-2 font-medium text-gray-500 rounded hover:bg-red-500 hover:text-white transition duration-300" %>
+					<% else %>
+					<%= link_to "Login",user_session_path, class: "nav-item py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300" %>
+					<%= link_to "Sign Up", new_user_registration_path, class: "nav-item py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300" %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+			<!-- Mobile menu button -->
+			<div class="md:hidden flex items-center">
+				<button class="outline-none mobile-menu-button">
+				<svg class=" w-6 h-6 text-gray-500 hover:text-green-500 "
+					x-show="!showMenu"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path d="M4 6h16M4 12h16M4 18h16"></path>
+				</svg>
+			</button>
+			</div>
+		</div>
+	</div>
+	<!-- mobile menu -->
+	<div class="hidden mobile-menu">
+		<ul class="">
+	<% if user_signed_in? %>
+		<li><%= link_to "Home", root_path,class: "block text-sm px-2 py-4 text-white bg-green-500 font-semibold "%></li>
+		<% if current_user.role=='admin'%>
+			<li><%= link_to "Users", users_path, class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+			<li><%= link_to "Products", products_path, class:"block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+			<li><%= link_to "Services", product_services_path, class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+			<li><%= link_to "Edit Profile", edit_user_registration_path, class:"block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+		<% else%>
+			<li><%= link_to "Products", products_path,class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+			<li><%= link_to "Services", product_services_path,class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+			<li><%= link_to "Edit Profile", edit_user_registration_path,class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+			<li><%= link_to "Cart", carts_index_path,class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+			<li><%= link_to "My Orders", orders_path,class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+		<% end%>
+		<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+	<% else %>
+		<li><%= link_to "Login",user_session_path, class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+		<li><%= link_to "Sign Up", new_user_registration_path, class: "block text-sm px-2 py-4 hover:bg-green-500 transition duration-300" %></li>
+	<% end %>
+		</ul>
+	</div>
+	<script>
+		const mobileBtn = document.querySelector("button.mobile-menu-button");
+		const menu = document.querySelector(".mobile-menu");
+
+		mobileBtn.addEventListener("click", () => {
+			menu.classList.toggle("hidden");
+		});
+	</script>
+</nav>
+
+<%= javascript_pack_tag 'navbar'%>

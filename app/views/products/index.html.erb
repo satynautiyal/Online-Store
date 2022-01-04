@@ -1,0 +1,79 @@
+<div class="container mx-auto mt-4">
+  <div class="flex flex-col">
+    <% if user_signed_in? %>
+      <%= link_to 'New Product', new_product_path,class: "appearance-none block w-25 bg-green-600 text-white font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:outline-none focus:bg-green focus:border-gray-500" if(user_signed_in? && current_user.role != "buyer") %>
+    <% else %>
+      <div class="text-3xl">
+        Shop By Brands
+      </div>
+    <% end %>
+    <ul class="result">
+      <% @products.each do |product| %>
+          <li>
+            <div class="card cardsearchcloth">
+              <%= link_to product do %>
+                <% if product.main_image.attached? %>
+                  <%= image_tag product.main_image, class:"w-full" %>
+                <% else %>
+                  <%= image_tag image_url("no_image.jpg"), class:"w-full" %>
+                <% end %>
+                <div class="card-body" style="text-align:left">
+                  <div class="card-product-name text-center">
+                    <%= product.name %>
+                  </div>
+              <% end %>
+                <% if user_signed_in? && current_user.role == "admin" && product.discarded? %>
+                 <div class="text-center w-full  text-1xl head text-red-500">Deleted</div>
+                <% end %>
+                  <div>
+                    <%= link_to 'Edit', edit_product_path(product),class: "text-green-600 hover:text-green-600" if user_signed_in? && policy(product).edit? %>
+                  </div>
+                  <div>
+                    <% if !product.discarded? %>
+                      <%= link_to 'Delete', soft_destroy_product_path(id: product.id), method: :post, data: { confirm: 'Are you sure?' },class: "text-red-600 hover:text-delete-600"  if user_signed_in? && policy(product).soft_destroy? %>
+                    <% end %>
+                  </div>
+                <% if user_signed_in? && current_user.role == "admin" && product.discarded? %>
+                  <div>
+                    <%= link_to 'Permanent Delete', "/products/"+product.id.to_s, method: :delete, data: { confirm: 'Are you sure?' },class: "text-red-600 hover:text-delete-600"  if user_signed_in? && policy(product).destroy? %>
+                  </div>
+                <% end %>
+              </div>
+          </li>
+        <% end %>
+    </ul>
+    <div class="mx-auto mt-2 mb-2"><%== pagy_nav(@pagy) %></div>
+  </div>
+</div>
+
+<% if @from_category != nil %>
+<!--Product Cards-->
+<div class="mt-5">
+  <ul class="result">
+    <% @products.each do |product| %>
+      <% product.product_variants.each do |product_variant| %>
+        <%= link_to product_variant do %>
+          <li>
+            <div class="card cardsearchcloth">
+              <div class="card-img mx-auto">
+                <% if product_variant.main_image.attached? %>
+                  <%= image_tag product_variant.main_image,class: "product-image mx-auto" %>
+                <% else %>
+                  <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+                <% end %>
+              </div>
+              <div class="card-body" style="text-align:left">
+                <div class="card-product-name">
+                  <%= product_variant.product.name %>
+                </div>
+                <span style="color:red;font-weight:600;font-size:18px;">₹ <%= product_variant.price %></span>
+                <div style="font-weight:600;font-size:12px;">(Inclusive of all taxes)</div>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+<% end %>

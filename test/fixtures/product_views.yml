@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  viewable: one
+  viewable_type: Viewable
+  user_ip: MyString
+
+two:
+  viewable: two
+  viewable_type: Viewable
+  user_ip: MyString

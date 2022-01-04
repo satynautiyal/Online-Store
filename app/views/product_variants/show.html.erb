@@ -1,0 +1,81 @@
+<div class="container ml-12 w-9/12 mt-14">
+  <p id="notice"><%= notice %></p>
+  <div class="grid grid-cols-12 gap-1">
+    <div class="col-span-5 images h-36">
+      <p class="mb-3 float-right">
+      <!--Product Image-->
+      <%= render partial: "product_variants/product_image"%>
+      </p>
+    </div>
+    <div class="col-span-5 ml-28">
+
+      <p class="mb-2">
+        <strong>Batch no:</strong>
+        <%= @product_variant.batch_no %>
+      </p>
+
+      <p class="mb-2">
+        <strong>Weight:</strong>
+        <%= @product_variant.weight %>
+      </p>
+
+      <p class="mb-2">
+        <strong>Price:</strong>
+        <%= @product_variant.price %>
+      </p>
+
+      <p class="mb-2">
+        <strong>Quantity:</strong>
+        <%= @product_variant.quantity %>
+      </p>
+
+      <p class="mb-2">
+        <strong>Expiry:</strong>
+        <%= @product_variant.expiry %>
+      </p>
+
+      <p class="mb-2">
+        <strong>Product:</strong>
+        <%= @product_variant.product_id %>
+      </p>
+      <% if @product_variant.quantity != 0 %>
+        <%= render partial: "orders/form", locals: {orderable: @product_variant} %>
+      <% else %>
+        <div class="appearance-none w-auto rounded-lg text-gray-100 font-bold border text-center border-gray-200 py-4 px-3 leading-tight" style="background-color:orange">Out Of Stock</div>
+        <% if user_signed_in? %>
+          <!--Wishlist-->
+          <% if Wishlist.where("product_variant_id = #{@product_variant.id} AND user_id = #{current_user.id}").count == 0 %>
+            <button type="button" id="addWishlistButton" class="inline appearance-none w-full bg-green-600 rounded-lg text-gray-100 font-bold border border-gray-200 py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500" onclick="addToWishlist(<%= @product_variant.id %>,<%= current_user.id %>,'<%= add_to_wishlist_path %>')">
+              Add To Wishlist
+            </button>
+            <button type="button" id="removeFromWishlist" class="hidden appearance-none w-full bg-red-600 rounded-lg text-gray-100 font-bold border border-gray-200 py-3 px-3 leading-tight hover:bg-red-500 focus:opacity-70 focus:outline-none focus:border-gray-500"onclick="removeFromWishlist(<%= @product_variant.id %>,<%= current_user.id %>,'<%= remove_from_wishlist_path %>')">
+              Remove From Wishlist
+            </button>
+          <% else %>
+            <button type="button" id="addWishlistButton" class="hidden appearance-none w-full bg-green-600 rounded-lg text-gray-100 font-bold border border-gray-200 py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500" onclick="addToWishlist(<%= @product_variant.id %>,<%= current_user.id %>,'<%= add_to_wishlist_path %>')">
+              Add To Wishlist
+            </button>
+            <button type="button" id="removeFromWishlist" class="inline appearance-none w-full bg-red-600 rounded-lg text-gray-100 font-bold border border-gray-200 py-3 px-3 leading-tight hover:bg-red-500 focus:opacity-70 focus:outline-none focus:border-gray-500"onclick="removeFromWishlist(<%= @product_variant.id %>,<%= current_user.id %>,'<%= remove_from_wishlist_path %>')">
+              Remove From Wishlist
+            </button>
+          <% end %>  
+        <% end %>      
+      <% end %>
+      <%= link_to 'Edit', edit_product_variant_path(@product_variant, pid: @product_variant.product_id) if user_signed_in? && policy(@product_variant).edit?  %> |
+      <%= link_to 'Back', products_path %>
+    </div>
+  </div>
+</div> 
+
+<!--Javascript-->
+<%= javascript_pack_tag 'wishlist' %> 
+<script>
+  $.getJSON("https://api.ipify.org/?format=json", function(e) {
+    $.ajax({
+      type: 'get',
+      data: "user_ip="+e.ip+"&viewable_id=<%= @product_variant.id %>&viewable_type=ProductVariant",
+      url: '<%= product_show_path %>'
+    })
+  });
+  
+</script>

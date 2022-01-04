@@ -1,0 +1,58 @@
+<button type="button" class="mt-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 hover:border-grey-300 rounded" id="button-notification">
+  <i class="fa fa-bell" style="font-size:20px"></i>
+</button>
+<% @all_notification = NotificationBelong.where("user_id==#{current_user.id}").order('created_at DESC').limit(5)%>
+<% if @all_notification.length!=0 %>
+    <div id="notification-drop-down" style="display:none">
+        <div id="notification-drop-down-body">
+          <div class="notification-header text-center">Notifications</div>
+            <% @all_notification.each do |notification| %>
+                <!--Redirection Path-->
+                <% path_to_redirect= notification.notification.notifiable_type %>
+                <%= link_to path_to_redirect.constantize.find(notification.notification.notifiable_id), class: "notification-link", onclick: "readed(#{notification.notification_id},#{notification.user_id})" do %>
+                  
+                  <button class="drop-down-items mx-auto mt-2 grid grid-cols-12 gap-2">
+                    <div class="notificaion-icon col-span-2">
+                    <!--For Orders-->
+                    <% if notification.notification.notifiable_type == "Order"%>
+                        <i class='fa fa-shopping-bag' style='font-size:24px;color:#4CAF50;margin-top:4px;'></i>
+                    <!--For New Products+-->
+                    <% elsif notification.notification.notifiable_type == "ProductVariant" || notification.notification.notifiable_type == "ProductService" %>
+                        <i class='fa fa-tags' style='font-size:24px;color:orange'></i>
+                    <!--For ProductServices-->
+                    <% elsif notification.notification.notifiable_type == "User" %>
+                        <i class='fa fa-user' style='font-size:28px;color:grey;margin-top:4px;'></i>
+                    <% end %>
+                      </div>
+                      <div class="notification-body col-span-10">
+                        <% if notification.readed == true %>
+                          <div class="notification-title  leading-6 font-small text-gray-500">
+                            <%= notification.notification.title.humanize %>
+                          </div>
+                          <div class="notification-content leading-2 text-gray-500">
+                            <%= notification.notification.content.humanize %>
+                          </div>
+                        <% else %>
+                          <div class="notification-title leading-6 font-medium text-gray-700">
+                            <%= notification.notification.title.humanize %>
+                          </div>
+                          <div class="notification-content leading-5 text-gray-600">
+                            <%= notification.notification.content.humanize %>
+                          </div>
+                        <% end %>
+                      </div>
+                  </button>
+                  
+                <% end %>
+            <% end %>
+        </div>
+        <div class="viewall-notification-button">
+          <%= button_to "View All", notifications_path, class:"appearance-none w-full mt-2 bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500", method: :get %>
+        </div>
+    </div>
+<% end %>
+<!-- Count Unreaded Notification -->
+<% count_unreaded_notification= NotificationBelong.where("user_id==#{current_user.id} AND readed=0").count %>
+<div  class="number-of-unreaded-notification"><%= count_unreaded_notification %></div>
+
+ 
