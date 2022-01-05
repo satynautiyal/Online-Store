@@ -11,8 +11,6 @@ amazon:
   service: S3
   access_key_id: <%= ENV['ACCESS_KEY'] %> #"Rails.application.credentials.config[:aws][:access_key_id]"
   secret_access_key: <%= ENV['SECRET_KEY_ID'] %> #"Rails.application.credentials.config[:aws][:secret_access_key]"
-  #access_key_id: <%= Rails.application.credentials.config[:aws][:access_key_id] %>
-  #secret_access_key: <%= Rails.application.credentials.config[:aws][:secret_access_key] %>
   region:  "us-east-2"
   bucket: "demobucketsatish"
 
