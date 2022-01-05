@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
-    @notifications = NotificationBelong.where("user_id==#{current_user.id}").order('created_at DESC')
+    @notifications = NotificationBelong.where("user_id = #{current_user.id}").order('created_at DESC')
   end
 
   # GET /notifications/1 or /notifications/1.json

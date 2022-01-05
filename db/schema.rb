@@ -12,6 +12,179 @@
 
 ActiveRecord::Schema.define(version: 2022_01_03_095531) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "_active_storage_attachments", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "name", limit: 12
+    t.string "record_type", limit: 14
+    t.integer "record_id", limit: 2
+    t.integer "blob_id", limit: 2
+    t.string "created_at", limit: 10
+  end
+
+  create_table "_active_storage_blobs", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "key", limit: 28
+    t.string "filename", limit: 31
+    t.string "content_type", limit: 10
+    t.string "metadata", limit: 35
+    t.string "service_name", limit: 6
+    t.integer "byte_size"
+    t.string "checksum", limit: 24
+    t.string "created_at", limit: 10
+  end
+
+  create_table "_active_storage_variant_records", id: false, force: :cascade do |t|
+    t.string "id", limit: 1
+    t.string "blob_id", limit: 1
+    t.string "variation_digest", limit: 1
+  end
+
+  create_table "_ar_internal_metadata", id: false, force: :cascade do |t|
+    t.string "key", limit: 11
+    t.string "value", limit: 11
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+  end
+
+  create_table "_categories", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "name", limit: 15
+    t.integer "category_of", limit: 2
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+    t.string "discarded_at", limit: 1
+  end
+
+  create_table "_notification_belongs", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.integer "readed", limit: 2
+    t.integer "user_id", limit: 2
+    t.integer "notification_id", limit: 2
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+  end
+
+  create_table "_notifications", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "title", limit: 24
+    t.string "content", limit: 167
+    t.string "notifiable_type", limit: 14
+    t.integer "notifiable_id", limit: 2
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+  end
+
+  create_table "_orders", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "orderable_type", limit: 14
+    t.integer "orderable_id", limit: 2
+    t.decimal "total_amount", precision: 6, scale: 1
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+    t.string "start_time", limit: 36
+    t.string "qty", limit: 1
+    t.integer "user_id", limit: 2
+    t.integer "cart", limit: 2
+    t.string "end_time", limit: 36
+    t.string "date", limit: 1
+    t.string "duration", limit: 2
+  end
+
+  create_table "_product_services", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "name", limit: 7
+    t.string "description", limit: 15
+    t.integer "duration", limit: 2
+    t.decimal "price", precision: 4, scale: 1
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+    t.integer "user_id", limit: 2
+    t.string "start_time", limit: 19
+    t.string "end_time", limit: 19
+    t.integer "category_id", limit: 2
+    t.string "discarded_at", limit: 1
+  end
+
+  create_table "_product_variants", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "batch_no", limit: 129
+    t.string "weight", limit: 8
+    t.decimal "price", precision: 7, scale: 2
+    t.integer "quantity"
+    t.string "expiry", limit: 1
+    t.integer "product_id", limit: 2
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+    t.integer "user_id", limit: 2
+    t.string "discarded_at", limit: 10
+  end
+
+  create_table "_product_views", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "viewable_type", limit: 14
+    t.integer "viewable_id", limit: 2
+    t.string "user_ip", limit: 15
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+  end
+
+  create_table "_products", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "name", limit: 86
+    t.string "description", limit: 94
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+    t.integer "user_id", limit: 2
+    t.integer "category_id", limit: 2
+    t.string "discarded_at", limit: 10
+  end
+
+  create_table "_schema_migrations", id: false, force: :cascade do |t|
+    t.bigint "version"
+  end
+
+  create_table "_search_products", id: false, force: :cascade do |t|
+    t.string "id", limit: 1
+    t.string "created_at", limit: 1
+    t.string "updated_at", limit: 1
+  end
+
+  create_table "_searches", id: false, force: :cascade do |t|
+    t.string "id", limit: 1
+    t.string "created_at", limit: 1
+    t.string "updated_at", limit: 1
+  end
+
+  create_table "_sqlite_sequence", id: false, force: :cascade do |t|
+    t.string "name", limit: 26
+    t.integer "seq"
+  end
+
+  create_table "_users", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.string "email", limit: 17
+    t.string "encrypted_password", limit: 60
+    t.string "reset_password_token", limit: 1
+    t.string "reset_password_sent_at", limit: 1
+    t.string "remember_created_at", limit: 1
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+    t.integer "role", limit: 2
+    t.string "name", limit: 7
+    t.string "discarded_at", limit: 10
+  end
+
+  create_table "_wishlists", id: false, force: :cascade do |t|
+    t.integer "id", limit: 2
+    t.integer "user_id", limit: 2
+    t.integer "product_variant_id", limit: 2
+    t.string "created_at", limit: 10
+    t.string "updated_at", limit: 10
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -121,7 +294,7 @@ ActiveRecord::Schema.define(version: 2022_01_03_095531) do
 
   create_table "product_views", force: :cascade do |t|
     t.string "viewable_type", null: false
-    t.integer "viewable_id", null: false
+    t.bigint "viewable_id", null: false
     t.string "user_ip"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

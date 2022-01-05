@@ -3,16 +3,20 @@ class ProductsController < ApplicationController
   include ProductsHelper
   # GET /products or /products.json
   def index
-    if params[:category] != nil
-      @from_category = params[:category]
-      @pagy,@products = pagy(all_product_variant_by_category(@from_category))
-    else
-      if user_signed_in? and current_user.role =="admin"
-        @pagy,@products = pagy(Product.all)
+    if Category.all.length !=0 && Product.all.length !=0
+      if params[:category] != nil
+        @from_category = params[:category]
+        @pagy,@products = pagy(all_product_variant_by_category(@from_category))
       else
-        @pagy,@products = pagy(Product.kept)
+        if user_signed_in? and current_user.role =="admin"
+          @pagy,@products = pagy(Product.all)
+        else
+          @pagy,@products = pagy(Product.kept)
+        end
       end
-    end
+    else
+			redirect_to no_data_page_url
+		end
   end
 
   # GET /products/1 or /products/1.json

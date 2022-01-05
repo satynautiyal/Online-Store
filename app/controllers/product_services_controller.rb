@@ -3,13 +3,15 @@ class ProductServicesController < ApplicationController
 
   # GET /product_services or /product_services.json
   def index
-    ProductService.reindex
-    query=params[:query]
-    if query != nil
-      @product_services= ProductService.search(query, fields: ['name^5','description'], match: :word_middle)
+    if ProductService.all.length != 0
+      if user_signed_in? && current_user.role == "admin"
+        @product_services = ProductService.all
+      else
+        @product_services = ProductService.kept
+      end
     else
-      @product_services = ProductService.all
-    end
+			redirect_to no_data_page_url
+		end
   end
 
   # GET /product_services/1 or /product_services/1.json

@@ -55,8 +55,14 @@
                   <%= link_to 'Edit', edit_product_service_path(product_service),class: "text-green-600 hover:text-green-600" if user_signed_in? && policy(product_service).edit? %>
                 </td>
                 <td>
-                  <%= link_to 'Destroy', product_service, method: :delete, data: { confirm: 'Are you sure?'},class: "text-red-600 hover:text-delete-600" if user_signed_in? && policy(product_service).destroy? %>
+                  <% if !product_service.discarded? %>
+                    <%= link_to 'Delete', soft_destroy_product_path(id: product_service.id), method: :post, data: { confirm: 'Are you sure?' },class: "text-red-600 hover:text-delete-600"  if user_signed_in? && policy(product).soft_destroy? %>
+                  <% end %>
+                  <% if user_signed_in? && current_user.role == "admin" && product.discarded? %>
+                    <%= link_to 'Permanent Delete', product_service, method: :delete, data: { confirm: 'Are you sure?' },class: "text-red-600 hover:text-delete-600"  if user_signed_in? && policy(product).destroy? %>
                 </td>
+                <% end %>
+              </td>
               </tr>
               <% end %>
             </tbody>

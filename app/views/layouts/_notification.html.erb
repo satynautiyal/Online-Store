@@ -1,8 +1,8 @@
 <button type="button" class="mt-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 hover:border-grey-300 rounded" id="button-notification">
   <i class="fa fa-bell" style="font-size:20px"></i>
 </button>
-<% @all_notification = NotificationBelong.where("user_id==#{current_user.id}").order('created_at DESC').limit(5)%>
-<% if @all_notification.length!=0 %>
+<% @all_notification = NotificationBelong.where("user_id = #{current_user.id}").order('created_at DESC').limit(5)%>
+<% if @all_notification.length != 0 %>
     <div id="notification-drop-down" style="display:none">
         <div id="notification-drop-down-body">
           <div class="notification-header text-center">Notifications</div>
@@ -52,7 +52,7 @@
     </div>
 <% end %>
 <!-- Count Unreaded Notification -->
-<% count_unreaded_notification= NotificationBelong.where("user_id==#{current_user.id} AND readed=0").count %>
+<% count_unreaded_notification= NotificationBelong.where("user_id = #{current_user.id} AND readed = false").count %>
 <div  class="number-of-unreaded-notification"><%= count_unreaded_notification %></div>
 
  
