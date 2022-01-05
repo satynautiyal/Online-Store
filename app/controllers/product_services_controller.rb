@@ -3,15 +3,11 @@ class ProductServicesController < ApplicationController
 
   # GET /product_services or /product_services.json
   def index
-    if ProductService.all.length != 0
-      if user_signed_in? && current_user.role == "admin"
-        @product_services = ProductService.all
-      else
-        @product_services = ProductService.kept
-      end
+    if user_signed_in? && current_user.role == "admin"
+      @product_services = ProductService.all
     else
-			redirect_to no_data_page_url
-		end
+      @product_services = ProductService.kept
+    end
   end
 
   # GET /product_services/1 or /product_services/1.json

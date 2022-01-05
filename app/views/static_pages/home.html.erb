@@ -1,157 +1,157 @@
 <div class="content">
   <div class="text-5xl text-center mt-4">Welcome to Our Online Store</div>
+  <% if Category.all.length != 0 && Product.all.length != 0 %>
+    <!--Most Popular-->
+    <div class="addhead mt-5">
+        <div>
+            <h1 class="head">Most Popular Items</h1>
+        </div>
+    </div>
+    <div class="w-full mx-auto">
+      <div class="products slider w-full mx-auto">
+        <% @most_popular.each do |most_popular| %>
+          <% product_variant=ProductVariant.find_by_id most_popular.viewable_id %>
+          <%= link_to product_variant do %>
+            <div class= "cards mx-auto">
+              <% if product_variant.main_image.attached? %>
+                <%= image_tag product_variant.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% else %>
+                <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% end %>
+              <div class="card-body mt-2 mb-2 text-center">
+                <%= product_variant.product.name %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <!--Trending-->
+    <div class="addhead mt-5">
+        <div>
+            <h1 class="head">Trending Items</h1>
+        </div>
+    </div>
+    <div class="w-full mx-auto">
+      <div class="products slider w-full mx-auto">
+        <% @trending.each do |trending| %>
+          <% product_variant=ProductVariant.find_by_id trending.orderable_id %>
+          <%= link_to product_variant do %>
+            <div class= "cards mx-auto" style="height: 299.5px;width: 200px">
+              <div class="card-img mx-auto">
+                  <% if product_variant.main_image.attached? %>
+                    <%= image_tag product_variant.main_image,class: "product-image mx-auto", style: "position: absolute;max-height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+                  <% else %>
+                    <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+                  <% end %>
+              </div>
+              <div class="card-body mt-2 mb-2 text-center">
+                <%= product_variant.product.name %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <!--Men's Fashion-->
+    <div class="addhead mt-5">
+        <div>
+            <h1 class="head">Men's Fashion</h1>
+        </div>
+    </div>
+    <div class="w-full mx-auto">
+      <div class="products slider w-full mx-auto">
+        <% @men_fashion.each do |men| %>
+          <%= link_to men do %>
+            <div class= "cards mx-auto">
+              <% if men.product_variants.first.main_image.attached? %>
+                <%= image_tag men.product_variants.first.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% else %>
+                <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% end %>
+              <div class="card-body mt-2 mb-2 text-center">
+                <%= men.name %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
 
-  <!--Most Popular-->
-  <div class="addhead mt-5">
-      <div>
-          <h1 class="head">Most Popular Items</h1>
-      </div>
-  </div>
-  <div class="w-full mx-auto">
-    <div class="products slider w-full mx-auto">
-      <% @most_popular.each do |most_popular| %>
-        <% product_variant=ProductVariant.find_by_id most_popular.viewable_id %>
-        <%= link_to product_variant do %>
-          <div class= "cards mx-auto">
-            <% if product_variant.main_image.attached? %>
-              <%= image_tag product_variant.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% else %>
-              <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% end %>
-            <div class="card-body mt-2 mb-2 text-center">
-              <%= product_variant.product.name %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
+    <!--Women's Fashion-->
+    <div class="addhead mt-5">
+        <div class="col-lg-10 col-md-9 col-9 col-sm-9">
+            <h1 class="head">Women's Fashion</h1>
+        </div>
     </div>
-  </div>
-  <!--Trending-->
-  <div class="addhead mt-5">
-      <div>
-          <h1 class="head">Trending Items</h1>
-      </div>
-  </div>
-  <div class="w-full mx-auto">
-    <div class="products slider w-full mx-auto">
-      <% @trending.each do |trending| %>
-        <% product_variant=ProductVariant.find_by_id trending.orderable_id %>
-        <%= link_to product_variant do %>
-          <div class= "cards mx-auto" style="height: 299.5px;width: 200px">
-            <div class="card-img mx-auto">
-                <% if product_variant.main_image.attached? %>
-                  <%= image_tag product_variant.main_image,class: "product-image mx-auto", style: "position: absolute;max-height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-                <% else %>
-                  <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-                <% end %>
+    <div class="w-full mx-auto">
+      <div class="products slider w-full mx-auto">
+        <% @women_fashion.each do |women| %>
+          <%= link_to women do %>
+            <div class= "cards mx-auto">
+              <% if women.product_variants.first.main_image.attached? %>
+                <%= image_tag women.product_variants.first.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% else %>
+                <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% end %>
+              <div class="card-body mt-2 mb-2 text-center">
+                <%= women.name %>
+              </div>
             </div>
-            <div class="card-body mt-2 mb-2 text-center">
-              <%= product_variant.product.name %>
-            </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-  </div>
-  <!--Men's Fashion-->
-  <div class="addhead mt-5">
-      <div>
-          <h1 class="head">Men's Fashion</h1>
       </div>
-  </div>
-  <div class="w-full mx-auto">
-    <div class="products slider w-full mx-auto">
-      <% @men_fashion.each do |men| %>
-        <%= link_to men do %>
-          <div class= "cards mx-auto">
-            <% if men.product_variants.first.main_image.attached? %>
-              <%= image_tag men.product_variants.first.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% else %>
-              <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% end %>
-            <div class="card-body mt-2 mb-2 text-center">
-              <%= men.name %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
     </div>
-  </div>
 
-  <!--Women's Fashion-->
-  <div class="addhead mt-5">
-      <div class="col-lg-10 col-md-9 col-9 col-sm-9">
-          <h1 class="head">Women's Fashion</h1>
-      </div>
-  </div>
-  <div class="w-full mx-auto">
-    <div class="products slider w-full mx-auto">
-      <% @women_fashion.each do |women| %>
-        <%= link_to women do %>
-          <div class= "cards mx-auto">
-            <% if women.product_variants.first.main_image.attached? %>
-              <%= image_tag women.product_variants.first.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% else %>
-              <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% end %>
-            <div class="card-body mt-2 mb-2 text-center">
-              <%= women.name %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
+    
+    <!--Watches-->
+    <div class="addhead mt-5">
+        <div class="col-lg-10 col-md-9 col-9 col-sm-9">
+            <h1 class="head">Trending on Watches</h1>
+        </div>
     </div>
-  </div>
-
-  
-  <!--Watches-->
-  <div class="addhead mt-5">
-      <div class="col-lg-10 col-md-9 col-9 col-sm-9">
-          <h1 class="head">Trending on Watches</h1>
-      </div>
-  </div>
-  <div class="w-full mx-auto">
-    <div class="products slider w-full mx-auto">
-      <% @watches.each do |watch| %>
-        <%= link_to watch do %>
-          <div class= "cards mx-auto">
-            <% if watch.product_variants.first.main_image.attached? %>
-              <%= image_tag watch.product_variants.first.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% else %>
-              <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% end %>
-            <div class="card-body mt-2 mb-2 text-center">
-              <%= watch.name %>
+    <div class="w-full mx-auto">
+      <div class="products slider w-full mx-auto">
+        <% @watches.each do |watch| %>
+          <%= link_to watch do %>
+            <div class= "cards mx-auto">
+              <% if watch.product_variants.first.main_image.attached? %>
+                <%= image_tag watch.product_variants.first.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% else %>
+                <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% end %>
+              <div class="card-body mt-2 mb-2 text-center">
+                <%= watch.name %>
+              </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-  </div>
-
-  <!--Mobile-->
-  <div class="addhead mt-5">
-      <div class="col-lg-10 col-md-9 col-9 col-sm-9">
-          <h1 class="head">Best Deals On Mobile</h1>
       </div>
-  </div>
-  <div class="w-full mx-auto">
-    <div class="products slider w-full mx-auto">
-      <% @mobile.each do |mobile| %>
-        <%= link_to mobile do %>
-          <div class= "cards mx-auto">
-            <% if mobile.product_variants.first.main_image.attached? %>
-              <%= image_tag mobile.product_variants.first.main_image, style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% else %>
-              <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-            <% end %>
-            <div class="card-body mt-2 mb-2 text-center">
-              <%= mobile.name %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
     </div>
-  </div>
 
+    <!--Mobile-->
+    <div class="addhead mt-5">
+        <div class="col-lg-10 col-md-9 col-9 col-sm-9">
+            <h1 class="head">Best Deals On Mobile</h1>
+        </div>
+    </div>
+    <div class="w-full mx-auto">
+      <div class="products slider w-full mx-auto">
+        <% @mobile.each do |mobile| %>
+          <%= link_to mobile do %>
+            <div class= "cards mx-auto">
+              <% if mobile.product_variants.first.main_image.attached? %>
+                <%= image_tag mobile.product_variants.first.main_image, style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% else %>
+                <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+              <% end %>
+              <div class="card-body mt-2 mb-2 text-center">
+                <%= mobile.name %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

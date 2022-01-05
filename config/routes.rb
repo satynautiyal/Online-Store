@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  get '/no_data_page', to: 'static_pages#no_data_page', as: :no_data_page
   resources :product_views
   get '/product_show', to: 'product_views#create_product_view', as: :product_show
   resources :searches,only:[:index]

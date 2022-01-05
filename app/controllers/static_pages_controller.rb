@@ -10,11 +10,7 @@ class StaticPagesController < ApplicationController
 			@most_popular =  ProductView.group(:id).group(:viewable_id).order('count(viewable_id) DESC')
 			@trending = Order.group(:id).group(:orderable_id).where(orderable_type: 
 			"ProductVariant").order('count(orderable_id) DESC').order('created_at DESC')
-		else
-			redirect_to no_data_page_url
 		end
 	end
 
-	def no_data_page
-	end
 end

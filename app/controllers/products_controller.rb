@@ -14,8 +14,6 @@ class ProductsController < ApplicationController
           @pagy,@products = pagy(Product.kept)
         end
       end
-    else
-			redirect_to no_data_page_url
 		end
   end
 
