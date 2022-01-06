@@ -6,7 +6,7 @@ postgresql-client \
 build-base \
 libxml2-dev \
 libxslt-dev \
-nodejs \
+nodejs-current \
 yarn \
 libffi-dev \
 readline \
