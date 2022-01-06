@@ -23,7 +23,6 @@ services:
       - db
       - redis
     environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/postgres
       - REDIS_URL=redis://redis:6379
     volumes:
       - .:/Online-store
