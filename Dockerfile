@@ -25,8 +25,8 @@ WORKDIR /app
 COPY . /app
 
 ENV BUNDLE_PATH /gems
-RUN yarn_install
-RUN bundle_install
+RUN yarn install
+RUN bundle install
 
 ENTRYPOINT ["bin/rails"]
 CMD ["s", -"b", "0.0.0.0"]
