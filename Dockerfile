@@ -22,14 +22,14 @@ git \
 tzdata \
 && rm -rf /var/cache/apk*
 
-WORKDIR /usr/src/app
-COPY . /app
+WORKDIR /app
+COPY . /app/
 
 ENV BUNDLE_PATH /gems
 RUN yarn install
 RUN bundle install
 
-ENTRYPOINT ["/usr/src/bin/rails"]
+ENTRYPOINT ["/bin/rails"]
 CMD ["s", -"b", "0.0.0.0"]
 
 EXPOSE 3000
