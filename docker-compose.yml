@@ -9,8 +9,8 @@ services:
 
   redis:
     image: redis:latest
-    ports: 
-      - "6379:6379"
+    volumes:
+      - 'redis:/data'
 
   web:
     build: .
@@ -24,3 +24,18 @@ services:
       - db
       - redis
 
+  cable:
+    depends_on:
+      - 'redis'
+    build: .
+    command: puma -p 28080 cable/config.ru
+    ports:
+      - '28080:28080'
+    volumes:
+      - '.:/app'
+    env_file:
+      - '.env'
+
+volumes:
+  redis:
+  postgres:
