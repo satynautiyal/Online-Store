@@ -1,35 +1,16 @@
 From ruby:3.0.2-alpine
 
-Run apk add --update --virtual \
-runtime-deps \
-postgresql-client \
-build-base \
-libxml2-dev \
-libxslt-dev \
-nodejs-current \
-yarn \
-libffi-dev \
-readline \
-build-base \
-postgresql-dev \
-libc-dev \
-linux-headers \
-readline-dev \
-file \
-imagemagick \
-git \
-tzdata \
-&& rm -rf /var/cache/apk*
+RUN apt-get update -qq \
+&& apt-get install -y nodejs postgresql-client
 
-WORKDIR /app
-COPY . /app/
+ADD . /Online-store
+WORKDIR /Online-store
+RUN bundle install
 
 ENV BUNDLE_PATH /gems
 RUN yarn install
 RUN bundle install
 RUN npm install
 
-ENTRYPOINT ["/bin/rails"]
-CMD ["s", -"b", "0.0.0.0"]
-
 EXPOSE 3000
+CMD ["bash"]
