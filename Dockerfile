@@ -7,6 +7,7 @@ build-base \
 libxml2-dev \
 libxslt-dev \
 nodejs-current \
+npm-current \
 yarn \
 libffi-dev \
 readline \
@@ -21,14 +22,14 @@ git \
 tzdata \
 && rm -rf /var/cache/apk*
 
-WORKDIR /app
+WORKDIR /usr/src/app
 COPY . /app
 
 ENV BUNDLE_PATH /gems
 RUN yarn install
 RUN bundle install
 
-ENTRYPOINT ["bin/rails"]
+ENTRYPOINT ["/usr/src/bin/rails"]
 CMD ["s", -"b", "0.0.0.0"]
 
 EXPOSE 3000
