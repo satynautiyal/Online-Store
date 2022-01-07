@@ -306,7 +306,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-rails
   pagy
-  pg (~> 1.1)
+  pg
   puma (~> 5.0)
   pundit
   rack-mini-profiler (~> 2.0)

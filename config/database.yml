@@ -82,5 +82,3 @@ test:
 production:
   <<: *default
   database: Online_strore_production
-  username: Online_strore
-  password: <%= ENV['ONLINE_STRORE_DATABASE_PASSWORD'] %>
