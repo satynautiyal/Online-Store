@@ -7,6 +7,7 @@ build-base \
 libxml2-dev \
 libxslt-dev \
 nodejs-current \
+npm \
 yarn \
 libffi-dev \
 readline \
