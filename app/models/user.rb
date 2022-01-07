@@ -30,7 +30,7 @@ class User < ApplicationRecord
     @user=User.select('id').where(id: 4)
     Notification.create_notification(@notification_data, @user)
     #BroadCasting Notification
-    ActionCable.server.broadcast("notification_channel", {title: "A new user is arrived",content: "#{name} has registered successfully", for_user: "admin", icon: "<i class='fa fa-user-circle-o' style='font-size:24px;color:red'></i>"})
+    #ActionCable.server.broadcast("notification_channel", {title: "A new user is arrived",content: "#{name} has registered successfully", for_user: "admin", icon: "<i class='fa fa-user-circle-o' style='font-size:24px;color:red'></i>"})
   end
 
   def self.deleted_user_notification
@@ -40,7 +40,7 @@ class User < ApplicationRecord
     @user=User.select('id').where(id: 4)
     Notification.create_notification(@notification_data, @user)
     #BroadCasting Notification
-    ActionCable.server.broadcast("notification_channel", {title: "Account Deleted",content: "#{name} has deleted his account", for_user: "admin", icon: "<i class='fa fa-user' style='font-size:24px'></i>"})
+    #ActionCable.server.broadcast("notification_channel", {title: "Account Deleted",content: "#{name} has deleted his account", for_user: "admin", icon: "<i class='fa fa-user' style='font-size:24px'></i>"})
   end
 
   #Check if User is active or inactive
