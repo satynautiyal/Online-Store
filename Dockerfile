@@ -27,6 +27,7 @@ COPY . /app/
 ENV BUNDLE_PATH /gems
 RUN yarn install
 RUN bundle install
+RUN npm install
 
 ENTRYPOINT ["/bin/rails"]
 CMD ["s", -"b", "0.0.0.0"]
