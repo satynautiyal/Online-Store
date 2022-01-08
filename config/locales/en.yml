@@ -77,6 +77,6 @@ en:
   notification_belong_updated: "Notification Belong was successfully Updated."
   notification_belong_destroyed: "Notification Belong was successfully Deleted."
   #For Category
-  category_created: "Notification Belong successfully created."
-  category_updated: "Notification Belong was successfully Updated."
-  category_destroyed: "Notification Belong was successfully Deleted."
+  category_created: "Category successfully created."
+  category_updated: "Category  was successfully Updated."
+  category_destroyed: "Category was successfully Deleted."
