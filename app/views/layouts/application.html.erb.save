@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OnlineStrore</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <script src="https://js.stripe.com/v3"></script>
+  	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div>
+      <%= render 'layouts/nav_bar' %>
+    </div>
+    <div class="sub-nav grid grid-cols-12 w-full bg-green-900 text-white py-4 px-2 nav-item font-semibold text-white transition duration-300" style="margin-top:-10px">
+      <div class="col-span">
+        <%= link_to "Men's Fashion", products_path(category: "Men's Fashion"), class: "text-white" %>
+      </div>
+      <div class="col-span">
+        <%= link_to "Women's Fashion", products_path(category: "Women's Fashion"), class: "text-white" %>
+      </div>
+      <div class="col-span">
+        <%= link_to "Mobiles", products_path(category: "Mobile"), class: "text-white" %>
+      </div>
+      <div class="col-span">
+        <%= link_to "Watches", products_path(category: "Watch"), class: "text-white" %>
+      </div>
+      <div class="col-span">
+        <%= link_to "Services", product_services_path, class: "text-white" %>
+      </div>
+    </div>
+    <div class="content">
+      <%= render 'layouts/notification_alert' %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </div>
+  </body>
+</html>

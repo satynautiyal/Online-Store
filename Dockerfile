@@ -8,6 +8,7 @@ libxml2-dev \
 libxslt-dev \
 nodejs-current \
 yarn \
+npm \
 libffi-dev \
 readline \
 build-base \
@@ -26,6 +27,7 @@ COPY Gemfile* ./
 
 RUN yarn install
 RUN bundle install
+COPY . .
 
 EXPOSE 3000
-CMD "rails server -b 0.0.0.0"
+CMD rails server -b 0.0.0.0
