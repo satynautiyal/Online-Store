@@ -21,13 +21,11 @@ git \
 tzdata \
 && rm -rf /var/cache/apk*
 
-WORKDIR /app
-COPY . /app/
-
-ENV BUNDLE_PATH /gems
+WORKDIR /usr/src/app
+COPY Gemfile* ./
 RUN yarn install
 RUN bundle install
-
-CMD ["rails", "server", "-b", "0.0.0.0"]
+COPY . .
 
 EXPOSE 3000
+CMD rails server -b 0.0.0.0
