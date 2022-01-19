@@ -8,11 +8,17 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.where(user_id: current_user)
+    @orders = Order.includes(:orderable).where(user_id: current_user)
   end
 
   # GET /orders/1 or /orders/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "order_no#{@order.id}",template: "orders/order_pdf.html.erb",page_size: 'A4'
+      end
+    end
   end
 
   # GET /orders/new
@@ -25,38 +31,27 @@ class OrdersController < ApplicationController
   end
 
 def time_slot
-         respond_to do |format|
-             format.js {render layout: false} # Add this line to you respond_to block
-         end
+  respond_to do |format|
+      format.js {render layout: false} # Add this line to you respond_to block
+  end
 end
   # POST /orders or /orders.json
   def create
     @order = @orderable.orders.new(order_params)
     if defined? current_user.id
-      @order.user_id = current_user.id
+      @order.user_id = OrderService.check_if_user_signed_in_else_redirect_to_login(current_user.id, params[:cart],@order)
     else
-      add_to_cart_before_login(params[:cart])
+      redirect, session[:cart] = OrderService.check_if_user_signed_in_else_redirect_to_login("not_signed_in", params[:cart],@order)
+      redirect_to eval("#{redirect}"), notice: I18n.t('sign_in_first')      
       return
     end
-    if params[:cart]=="Add To Cart"
-        if check_already_in_cart() == false
-          @order.cart=1
-          respond_to do |format|
-              if @order.save
-                format.html { redirect_to carts_index_path, notice: I18n.t('add_cart') }
-                format.json { render :show, status: :created, location: @order }
-              end
-          end
-        end
-    else
-      @order.cart=0
+      order, notice, redirect= OrderService.create_order(params[:cart],current_user.id,@order)
       respond_to do |format|
-        if @order.save
-          format.html { redirect_to @order, notice: I18n.t('order_created') }
-          format.json { render :show, status: :created, location: @order }
+        if order.save
+          format.html { redirect_to eval("#{redirect}"), notice: notice }
+          format.json { render :show, status: :created, location: order }
         end
-      end
-    end
+      end   
   end
 
   # PATCH/PUT /orders/1 or /orders/1.json

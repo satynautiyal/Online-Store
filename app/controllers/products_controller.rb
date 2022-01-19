@@ -10,6 +10,8 @@ class ProductsController < ApplicationController
       else
         if user_signed_in? and current_user.role =="admin"
           @pagy,@products = pagy(Product.all)
+        elsif user_signed_in? and current_user.role =="seller"
+          @pagy,@products = pagy(Product.kept.find_by_user_id current_user.id)
         else
           @pagy,@products = pagy(Product.kept)
         end

@@ -1,0 +1,86 @@
+<div id="tabular_data">
+    <% @tabular_sales_group_by = params[:tabular_sales_group_by]%>
+    <%
+        if @tabular_sales_group_by=="Yearly" 
+            @tabular_sales_group_by = "Yearly"
+            @tabular_sales_data =Order.all.group_by {|m|  m.created_at.beginning_of_year} 
+        elsif @tabular_sales_group_by=="Monthly" 
+            @tabular_sales_group_by = "Monthly"
+            @tabular_sales_data =Order.all.group_by {|m|  m.created_at.beginning_of_month}  
+        elsif @tabular_sales_group_by=="Weekly" 
+            @tabular_sales_group_by = "Weekly"
+            @tabular_sales_data =Order.all.group_by {|m|  m.created_at.beginning_of_week} 
+        elsif @tabular_sales_group_by=="Daily" 
+            @tabular_sales_group_by = "Daily"
+            @tabular_sales_data =Order.all.group_by {|m|  m.created_at.beginning_of_day}  
+        end 
+    %>
+</div>
+<div class="px-4 py-4 mx-auto m-5"  style="background-color:white;width:100%">    
+    <div style="font-size:24px;text-align:center;font-weight:600;margin-bottom:15px">
+        Sales Data <%= @tabular_sales_group_by %>
+    </div>
+    <table style="margin:auto;width:100%;border:2px solid black">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Year
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Total Orders(Sales)
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Total Income
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            <% @tabular_sales_data.each do |order_data| %>
+                <% total_revenue=order_data.second.pluck(:total_amount) %>
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                        <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">   
+                                <% if @tabular_sales_group_by == "Yearly" %>                         
+                                    <%= order_data.first.year %>
+                                <% elsif @tabular_sales_group_by == "Monthly" %>
+                                    <%= Date::MONTHNAMES[order_data.first.month] %>
+                                <% elsif @tabular_sales_group_by == "Weekly" %>
+                                    <%= order_data.first.to_date %>
+                                <% elsif @tabular_sales_group_by == "Daily" %>
+                                    <%= order_data.first.to_date %>
+                                <% end %>
+                            </div>
+                        </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                        <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">
+                                <%= @total_order=total_revenue.length %>
+                            </div>
+                        </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                        <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">
+                                <%= @total_revenue=total_revenue.sum %>                                
+                            </div>
+                        </div>
+                        </div>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<style>
+    th,td{
+        padding:15px;
+        text-align:center
+    }
+</style>

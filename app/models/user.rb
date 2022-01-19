@@ -24,23 +24,23 @@ class User < ApplicationRecord
   after_create :new_user_notification
   
   def new_user_notification
-    @title = "A new user is arrived"
-    @content = "#{name} has registered successfully"
+    @title = I18n.t(:user_added_title)
+    @content = I18n.t(:user_added_content, user_name: name)
     @notification_data = {"title": @title, "content": @content,"notifiable_type": "User","notifiable_id": id}
-    @user=User.select('id').where(id: 4)
+    @user=User.select('id').where(role: "admin")
     Notification.create_notification(@notification_data, @user)
     #BroadCasting Notification
-    ActionCable.server.broadcast("notification_channel", {title: "A new user is arrived",content: "#{name} has registered successfully", for_user: "admin", icon: "<i class='fa fa-user-circle-o' style='font-size:24px;color:red'></i>"})
+    ActionCable.server.broadcast("notification_channel", {title: @title,content: @content, for_user: "admin", icon: "<i class='fa fa-user-circle-o' style='font-size:24px;color:green'></i>"})
   end
 
   def self.deleted_user_notification
-    @title = "Account Deleted"
-    @content = "#{name} has deleted his account"
+    @title = I18n.t(:user_deleted_title)
+    @content = I18n.t(:user_deleted_content, user_name: name)
     @notification_data = {"title": @title, "content": @content,"notifiable_type": "User","notifiable_id": 4}
     @user=User.select('id').where(id: 4)
     Notification.create_notification(@notification_data, @user)
     #BroadCasting Notification
-    ActionCable.server.broadcast("notification_channel", {title: "Account Deleted",content: "#{name} has deleted his account", for_user: "admin", icon: "<i class='fa fa-user' style='font-size:24px'></i>"})
+    ActionCable.server.broadcast("notification_channel", {title: @title,content: @content, for_user: "admin", icon: "<i class='fa fa-user' style='font-size:24px;color:red'></i>"})
   end
 
   #Check if User is active or inactive
@@ -58,7 +58,7 @@ class User < ApplicationRecord
   end
   
   def inactive_message
-    "Sorry, this account has been deactivated."
+    I18n.t(:user_deactivated_message)
   end
 
   #After deleting user account soft Delete products added by that user

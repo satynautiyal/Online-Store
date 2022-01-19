@@ -8,6 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "stylesheets/application"
+import "chartkick/chart.js"
 var $ = require( "jquery" )
 require("slick-carousel")
 
@@ -49,7 +50,7 @@ document.addEventListener("turbolinks:load", function() {
         responsive: [{
           breakpoint: 1440,
           settings: {
-            slidesToShow: 6
+            slidesToShow: 5
           }
         },{
           breakpoint: 1024,
@@ -74,6 +75,7 @@ document.addEventListener("turbolinks:load", function() {
         }]
       });
   })
+  
 
  
   

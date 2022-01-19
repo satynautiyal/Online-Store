@@ -3,48 +3,7 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
-    @notifications = NotificationBelong.where("user_id = #{current_user.id}").order('created_at DESC')
-  end
-
-  # GET /notifications/1 or /notifications/1.json
-  def show
-  end
-
-  # GET /notifications/new
-  def new
-    @notification = Notification.new
-  end
-
-  # GET /notifications/1/edit
-  def edit
-  end
-
-  # POST /notifications or /notifications.json
-  def create
-    @notification = Notification.new(notification_params)
-
-    respond_to do |format|
-      if @notification.save
-        format.html { redirect_to @notification, notice: I18n.t("notification_created") }
-        format.json { render :show, status: :created, location: @notification }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /notifications/1 or /notifications/1.json
-  def update
-    respond_to do |format|
-      if @notification.update(notification_params)
-        format.html { redirect_to @notification, notice: I18n.t("notification_updated") }
-        format.json { render :show, status: :ok, location: @notification }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
-      end
-    end
+    @notifications = NotificationBelong.where("user_id = #{current_user.id}").includes(:notification).order('created_at DESC')
   end
 
   # DELETE /notifications/1 or /notifications/1.json

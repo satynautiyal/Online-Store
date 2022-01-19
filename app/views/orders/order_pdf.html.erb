@@ -1,0 +1,55 @@
+<div class="container ml-12 w-4/12 mt-14 mx-auto">
+<div class="text-5xl text-center">E-Receipt</div>
+  <div>Receipt Generated at <%= Time.now %></div>
+  <p class="text-5xl mb-4">Details of Order</p>
+  <p id="notice"><%= notice %></p>
+
+  <p class="mb-2">
+    <strong>Seller Name:</strong>
+    <%= @order.orderable.user.name.humanize %>
+  </p>
+
+  <p class="mb-2">
+    <strong>Buyer Name:</strong>
+    <%= @order.user.name.humanize %>
+  </p>
+
+  <p class="mb-2">
+    <strong>Order id:</strong>
+    <%= @order.id %>
+  </p>
+
+  <% if @order.orderable_type == "ProductVariant" %>
+    <p class="mb-2">
+      <strong><%= @order.orderable.product.name %></strong>
+    </p>
+  <% else %>
+    <p class="mb-2">
+      <strong><%= @order.orderable.name%></strong>
+    </p>
+
+    <p class="mb-2">
+      <strong>Start time:</strong>
+      <%= @order.start_time %>
+    </p>
+
+    <p class="mb-2">
+      <strong>End Time:</strong>
+      <%= @order.end_time %>
+    </p>
+  <% end %>
+
+  <p>
+    <strong>Total amount:</strong>
+    <%= @order.total_amount %>
+  </p>
+  <p class="mb-2">
+    <strong>Amount Paid:</strong>
+    <%= @order.total_amount %>
+  </p>
+
+  <p class="mb-2">
+    <strong>Ordered On:</strong>
+    <%= @order.created_at %>
+  </p>
+</div>

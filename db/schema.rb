@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_095531) do
+ActiveRecord::Schema.define(version: 2022_01_16_063152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,10 +215,10 @@ ActiveRecord::Schema.define(version: 2022_01_03_095531) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.integer "category_of"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "discarded_at"
+    t.integer "category_of"
     t.index ["discarded_at"], name: "index_categories_on_discarded_at"
   end
 
@@ -293,12 +293,11 @@ ActiveRecord::Schema.define(version: 2022_01_03_095531) do
   end
 
   create_table "product_views", force: :cascade do |t|
-    t.string "viewable_type", null: false
-    t.bigint "viewable_id", null: false
     t.string "user_ip"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["viewable_type", "viewable_id"], name: "index_product_views_on_viewable"
+    t.bigint "product_variant_id", null: false
+    t.index ["product_variant_id"], name: "index_product_views_on_product_variant_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -358,6 +357,7 @@ ActiveRecord::Schema.define(version: 2022_01_03_095531) do
   add_foreign_key "product_services", "users"
   add_foreign_key "product_variants", "products"
   add_foreign_key "product_variants", "users"
+  add_foreign_key "product_views", "product_variants"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "users"
   add_foreign_key "wishlists", "product_variants"

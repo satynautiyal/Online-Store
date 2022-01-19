@@ -33,7 +33,7 @@
           <% if defined?(order.orderable.name) %>
             <td><%= order.orderable.name %></td>
           <% else %>
-             <td><%= order.orderable.product.name %></td>
+             <td><%= product_name(order.orderable) %></td>
           <% end %>   
           <td><%= order.orderable_type%></td>
           <td><%= order.qty %></td>

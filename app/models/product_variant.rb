@@ -3,7 +3,7 @@ class ProductVariant < ApplicationRecord
   include Discard::Model
   has_many :orders, as: :orderable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
-  has_many :product_views, as: :viewable, dependent: :destroy
+  has_many :product_views, dependent: :destroy
   has_one_attached :main_image, dependent: :destroy
   has_many_attached :other_images, dependent: :destroy
   belongs_to :product

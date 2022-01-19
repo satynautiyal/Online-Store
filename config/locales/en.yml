@@ -43,6 +43,12 @@ en:
   product_added_content: "%{product_name} product is available by %{user_name}"
   stock_back_title: "Back in stock"
   stock_back_content: " %{product_name} product is back in stock"
+  #For Users
+  user_added_title:   "New User"
+  user_added_content: "%{user_name} has registered account"
+  user_deleted_title: "Account Deleted"
+  user_deleted_content: "%{user_name} has deleted successfully"
+  user_deactivated_message: "Sorry, this account has been deactivated."
 
 #Controllers
   #For Products
@@ -62,8 +68,10 @@ en:
   order_destroyed: "Order successfully destroyed."
   order_created: "Order was successfully placed."
   add_cart: "Added to Cart"
+  already_in_cart: "Already in cart"
   #For User
   user_destroyed: "User was successfully destroyed."
+  sign_in_first: "You need to Sign in first"
   #For Wishlist
   wishlist_destroyed: "Item successfully removed from wishlist"
   #For Payment

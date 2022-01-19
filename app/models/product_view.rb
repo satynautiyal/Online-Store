@@ -1,3 +1,3 @@
 class ProductView < ApplicationRecord
-  belongs_to :viewable, polymorphic: true
+  belongs_to :product_variant
 end

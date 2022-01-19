@@ -1,17 +1,14 @@
 <div class="container mx-auto mt-4">
   <div class="flex flex-col">
-    <% if user_signed_in? %>
-      <%= link_to 'New Product', new_product_path,class: "appearance-none block w-25 bg-green-600 text-white font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:outline-none focus:bg-green focus:border-gray-500" if(user_signed_in? && current_user.role != "buyer") %>
-    <% else %>
-      <div class="text-3xl">
+      <%= link_to 'Add a New Product', new_product_path,class: "mb-6 appearance-none block w-full text-center bg-green-600 text-white font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:outline-none focus:bg-green focus:border-gray-500" if(user_signed_in? && current_user.role != "buyer") %>
+      <div class="text-3xl mt-5">
         Shop By Brands
       </div>
-    <% end %>
   </div>
     <% if Category.all.length !=0 && Product.all.length !=0 %>
       <div class="flex flex-col">
         <ul class="result">
-          <% @products.each do |product| %>
+          <% @products.includes(:main_image_attachment).each do |product| %>
               <li>
                 <div class="card cardsearchcloth">
                   <%= link_to product do %>
@@ -53,7 +50,7 @@
         <div class="mt-5">
           <ul class="result">
             <% @products.each do |product| %>
-              <% product.product_variants.each do |product_variant| %>
+              <% product.product_variants.includes(:main_image_attachment).each do |product_variant| %>
                 <%= link_to product_variant do %>
                   <li>
                     <div class="card cardsearchcloth">

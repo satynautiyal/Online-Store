@@ -73,7 +73,7 @@
   $.getJSON("https://api.ipify.org/?format=json", function(e) {
     $.ajax({
       type: 'get',
-      data: "user_ip="+e.ip+"&viewable_id=<%= @product_variant.id %>&viewable_type=ProductVariant",
+      data: "user_ip="+e.ip+"&product_variant_id=<%= @product_variant.id %>",
       url: '<%= product_show_path %>'
     })
   });

@@ -1,0 +1,61 @@
+<table>
+  <tr>
+    <th colspan="2">
+      Details of Order
+    </th>
+  </tr>
+
+  <tr>
+    <td style="text-center">User id:</td>
+    <td style="text-center"><%= @order.user.id %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center">User Name:</td>
+    <td style="text-center"><%= @order.user.name.humanize %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center">Order id:</td>
+    <td style="text-center"><%= @order.id %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center"><%= @order.user_id %> id:</td>
+    <td style="text-center"><%= @order.user_id %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center"><%= @order.orderable_type %> id:</td>
+    <td style="text-center"><%= @order.orderable_id %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center">Order Type:</td>
+    <td style="text-center"><%= @order.orderable_type %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center">Start time:</td>
+    <td style="text-center"><%= @order.start_time %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center">End Time:</td>
+    <td style="text-center"><%= @order.end_time %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center">Total amount:</td>
+    <td style="text-center"><%= @order.total_amount %></td>
+  </tr>
+  <tr>
+    <td style="text-center">Total amount:</td>
+    <td style="text-center"><%= @order.total_amount %></td>
+  </tr>
+
+  <tr>
+    <td style="text-center">Ordered On:</td>
+    <td style="text-center"><%= @order.created_at.to_date %></td>
+  </tr>
+</table>

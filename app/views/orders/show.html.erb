@@ -56,6 +56,6 @@
     <%= @order.created_at %>
   </p>
 
-  <%= link_to 'Edit', edit_order_path(@order) %> |
+  <%= link_to "Print Receipt (PDF)", order_path(@order, format: "pdf"), class: "text-blue-600 bg-inherit hover:text-blue-900" %> |
   <%= link_to 'Back', orders_path %>
 </div>

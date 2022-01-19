@@ -39,6 +39,7 @@ group :development do
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler', '~> 2.0'
+  gem 'bullet'
 end
 
 group :production do
@@ -71,5 +72,11 @@ gem 'elasticsearch-rails'
 gem 'searchkick'
 gem 'faker'
 gem 'pagy'
+gem 'groupdate'
 #For Soft Delete
 gem 'discard', '~> 1.2'
+#For Graphs
+gem "chartkick"
+#For Pdf
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'

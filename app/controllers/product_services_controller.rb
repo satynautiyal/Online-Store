@@ -5,6 +5,8 @@ class ProductServicesController < ApplicationController
   def index
     if user_signed_in? && current_user.role == "admin"
       @product_services = ProductService.all
+    elsif user_signed_in? && current_user.role == "seller"
+      @product_services = ProductService.kept.find_by_user_id current_user.id
     else
       @product_services = ProductService.kept
     end

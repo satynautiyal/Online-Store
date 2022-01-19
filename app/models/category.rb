@@ -7,4 +7,5 @@ class Category < ApplicationRecord
         product: 0, 
         product_service: 1
     }
+    validates :name, uniqueness: true
 end

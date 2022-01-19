@@ -47,6 +47,14 @@ Rails.application.routes.draw do
       get 'time_slot'
     end
   end
+  resources :static_pages do
+    collection do
+      get 'sales_graph_data'
+      get 'sales_tabular_data'
+      get 'users_graph_data'
+      get 'sales_analytical_data_pdf'
+    end
+  end
   get 'payment/create_payment', to: "payment#create_payment"
   get 'payment/payment_failed', to: "payment#payment_failed"
   get 'payment/order_place', to: "payment#order_place"

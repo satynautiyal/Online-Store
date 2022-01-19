@@ -1,0 +1,19 @@
+<div class="px-4 py-4 mx-auto m-5"  style="background-color:white;width:80%">
+    <div class="text-2xl mb-5">
+        <% users_data_graph_by() %>
+        Total Users <%= @users_group_by %>
+    </div>
+    <div class="float-right">
+        <%= select_tag("user_data",options_for_select(["Yearly","Monthly","Weekly","Daily"],@users_group_by),id: "dropdown_users")%>
+    </div>
+    <%= line_chart @users_data, id: "users_chart"  %>
+</div>
+<script>
+    $("#dropdown_users").on("change",function() {
+        $.ajax({
+            url: "<%= users_graph_data_static_pages_path %>",
+            data: "users_group_by="+$("#dropdown_users").val(),
+            type: "get"
+        })
+    })
+</script>

@@ -16,6 +16,11 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+./elasticsearch-7.16.3-amd64.deb
+./elasticsearch-7.16.3-amd64.deb.1
+./elasticsearch-7.16.3-amd64.deb.2
+./vendor
+
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*

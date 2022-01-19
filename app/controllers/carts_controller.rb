@@ -1,25 +1,19 @@
 class CartsController < ApplicationController
-  include CartsHelper
-  #To update data with js_file otherwise it will give error for authencity token as we are calling update query from js file
-  #skip_forgery_protection
 
   before_action :set_order, only: %i[ show edit update destroy ]
   def index
-    @cart = Order.where(user_id: current_user.id, cart: true)
+    @cart = Order.where(user_id: current_user.id, cart: true).includes(:orderable)
   end
 
   def edit
   end
   
   def buy_now
-    decrease_quantity_from_product_varaint()
+    CartService.decrease_quantity_from_product_varaint(current_user.id)
     respond_to do |format|
       if Order.where(:user_id => current_user.id, :cart => 'true').update_all("cart = false")
         format.html { redirect_to orders_path, notice: I18n.t('order_created') }
         format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end

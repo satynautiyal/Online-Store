@@ -72,7 +72,7 @@
     <hr>
     <br>
   <% end %>
-  <button>
-    <%= link_to 'New Product Variant', new_product_variant_path(pid: @product.id),class: "appearance-none w-full mt-2 bg-green-600 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500 text-white" if(user_signed_in? && current_user.role != "buyer") %>
+  <button class="w-full">
+    <%= link_to 'New Product Variant', new_product_variant_path(pid: @product.id),class: "appearance-none w-full mt-2 bg-green-600 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500 text-white text-center" if(user_signed_in? && current_user.role != "buyer") %>
   </button>
 </div>

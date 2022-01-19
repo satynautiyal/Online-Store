@@ -132,7 +132,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <% if Order.where("date == ? AND cart == false AND ((start_time == ?) OR (start_time BETWEEN ? AND ? AND start_time != ?) OR (end_time BETWEEN ? and ? AND end_time != ?) ) ", cart.date, cart.start_time,cart.start_time,cart.end_time,cart.end_time,cart.start_time,cart.end_time,cart.start_time).length == 0 %>
+                                <% if Order.where("date = ? AND cart = false AND ((start_time = ?) OR (start_time BETWEEN ? AND ? AND start_time != ?) OR (end_time BETWEEN ? and ? AND end_time != ?) ) ", cart.date, cart.start_time,cart.start_time,cart.end_time,cart.end_time,cart.start_time,cart.end_time,cart.start_time).length == 0 %>
                                     <td id="start_time<%=cart.id%>" onclick="first_select_date()" class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="ml-4">

@@ -17,7 +17,7 @@ class Order < ApplicationRecord
     @title = I18n.t(:notification_title_order)
     @content = I18n.t(:notification_content_order, orderable_type: orderable_type)
     @notification_data = {"title": @title, "content": @content,"notifiable_type": "Order","notifiable_id": id}
-    @user=User.select('id').where(id: [4,orderable.user_id])
+    @user=User.select('id').where(id: orderable.user_id, role: "admin")
     Notification.create_notification(@notification_data, @user)
     #BroadCasting Notification
     ActionCable.server.broadcast("notification_channel", {title: @title,content: @content, for_user: "admin", icon: "<i class='fa fa-shopping-bag' style='font-size:24px;color:#4CAF50;margin-top:4px;'></i>"})
