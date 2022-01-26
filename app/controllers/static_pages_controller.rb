@@ -2,10 +2,11 @@ class StaticPagesController < ApplicationController
   include StaticPagesHelper
 	def home
 		if Category.all.length != 0 && Product.all.length != 0
-			@category = Category.all
-			@most_popular =  ProductView.group(:id).group(:product_variant_id).order('count(product_variant_id) DESC')
-			@trending = Order.group(:id).group(:orderable_id).where(orderable_type: 
-			"ProductVariant").order('count(orderable_id) DESC').order('created_at DESC')
+			@category = Category.where(category_of: "product")
+			unless  user_signed_in? && (current_user.role == "admin" || current_user.role == "seller")
+				@most_popular =  ProductVariant.includes(:main_image_attachment).includes(:product).where(id: ProductView.select(:product_variant_id).group(:product_variant_id).order('COUNT(product_variant_id) DESC')).uniq
+				@trending = Order.includes(:orderable).where(orderable_type: "ProductVariant").order('created_at DESC').all.map{|p| p.orderable if p.orderable.kept?}.uniq		
+			end
 		end
 	end
 
@@ -29,7 +30,7 @@ class StaticPagesController < ApplicationController
 
 	def sales_analytical_data_pdf
 		if params[:format] ="pdf"
-			render pdf: "Analitical_data",template: "static_pages/analytical_data_pdf.html.erb",page_size: 'A4'
+			render pdf: "Analitical_data",template: "static_pages/sales_analytical_data_pdf.html.erb",page_size: 'A4'
 		end
 	end
 

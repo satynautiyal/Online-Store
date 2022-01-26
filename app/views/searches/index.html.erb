@@ -8,48 +8,50 @@
     <% if defined? result.product_variants %>
       <% result.product_variants.each do |product_variant| %>
         <% if !product_variant.discarded? %>
-          <div class="grid grid-cols-12 gap-1">
-            <div class="col-span-4 product-image-container mx-auto">
-              <!--Product Image-->
-              <% if product_variant.main_image.attached? %>
-                <%= image_tag product_variant.main_image, class: "product-image" %>
-              <% else %>
-                <%= image_tag image_url("no_image.jpg"), class: "product-image" %>
-              <% end %>
+          <%= link_to product_variant, class: "bg-inherit" do %>
+            <div class="grid grid-cols-12 gap-1">
+              <div class="col-span-4 product-image-container mx-auto">
+                <!--Product Image-->
+                <% if product_variant.main_image.attached? %>
+                  <%= image_tag product_variant.main_image, class: "product-image" %>
+                <% else %>
+                  <%= image_tag image_url("no_image.jpg"), class: "product-image" %>
+                <% end %>
+              </div>
+              <div class="col-span-8">
+                <p class="mb-2">
+                  <strong>Batch no:</strong>
+                  <%= product_variant.batch_no %>
+                </p>
+
+                <p class="mb-2">
+                  <strong>Weight:</strong>
+                  <%= product_variant.weight %>
+                </p>
+
+                <p class="mb-2">
+                  <strong>Price:</strong>
+                  <%= product_variant.price %>
+                </p>
+
+                <p class="mb-2">
+                  <strong>Quantity:</strong>
+                  <%= product_variant.quantity %>
+                </p>
+
+                <p class="mb-2">
+                  <strong>Expiry:</strong>
+                  <%= product_variant.expiry %>
+                </p>
+
+                <p class="mb-2">
+                  <strong>Product:</strong>
+                  <%= product_variant.product_id %>
+                </p>
+                <%= link_to 'Edit', edit_product_variant_path(product_variant, pid: product_variant.product_id) if user_signed_in? && policy(product_variant).edit?  %> |
+              </div>
             </div>
-            <div class="col-span-8">
-              <p class="mb-2">
-                <strong>Batch no:</strong>
-                <%= product_variant.batch_no %>
-              </p>
-
-              <p class="mb-2">
-                <strong>Weight:</strong>
-                <%= product_variant.weight %>
-              </p>
-
-              <p class="mb-2">
-                <strong>Price:</strong>
-                <%= product_variant.price %>
-              </p>
-
-              <p class="mb-2">
-                <strong>Quantity:</strong>
-                <%= product_variant.quantity %>
-              </p>
-
-              <p class="mb-2">
-                <strong>Expiry:</strong>
-                <%= product_variant.expiry %>
-              </p>
-
-              <p class="mb-2">
-                <strong>Product:</strong>
-                <%= product_variant.product_id %>
-              </p>
-              <%= link_to 'Edit', edit_product_variant_path(product_variant, pid: product_variant.product_id) if user_signed_in? && policy(product_variant).edit?  %> |
-            </div>
-          </div>
+          <% end %>
           <hr class="mb-4 mt-8 w-full">
         <% end %>
       <% end %>

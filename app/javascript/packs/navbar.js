@@ -71,3 +71,15 @@ $( document ).ready(function(){
         $("#search-button").css("display","nonex");
     }
 })
+
+$(document).on('click', function(e) {
+    var container = $("#welcome-dropdown-button");
+    if ($(e.target).closest(container).length)
+    {
+        $("#welcome-dropdown-items").css("display","block");
+    }
+    else
+    {
+        $("#welcome-dropdown-items").css("display","none");
+    }
+});

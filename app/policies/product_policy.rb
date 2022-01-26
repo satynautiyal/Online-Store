@@ -36,4 +36,8 @@ class ProductPolicy < ApplicationPolicy
     (@user.role == 'admin')
   end
 
+  def restore_soft_deleted?
+    (@user.role == 'admin')
+  end
+  
 end

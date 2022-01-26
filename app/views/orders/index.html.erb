@@ -1,54 +1,60 @@
 <p id="notice"><%= notice %></p>
-<div class="container">
-<h1>Orders</h1>
+<% if @orders != nil %>
+  <div class="container">
+  <h1>Orders</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Order Id</th>
-      <% if current_user.role != "buyer" %>
-        <th>User Id</th>
-      <% end %>
-      <th>Product/Service Id</th> 
-      <th>Product/Service Name</th> 
-      <th>Type</th> 
-      <th>Qty</th> 
-      <th>Start Time</th>
-      <th>End Time</th> 
-      <th>Service Date</th> 
-      <th>Total amount</th>
-      <th colspan="2">Action</th>
-    </tr>
-  </thead>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Order Id</th>
+        <% if current_user.role != "buyer" %>
+          <th>User Id</th>
+        <% end %>
+        <th>Product/Service Id</th> 
+        <th>Product/Service Name</th> 
+        <th>Type</th> 
+        <th>Qty</th> 
+        <th>Start Time</th>
+        <th>End Time</th> 
+        <th>Service Date</th> 
+        <th>Total amount</th>
+        <th colspan="2">Action</th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <% @orders.each do |order| %>
-      <% if order.cart == false %>
-        <tr>
-          <td><%= order.id %></td>
-          <% if current_user.role != "buyer" %>
-            <td><%= order.user_id %></td>
-          <% end %>
-          <td><%= order.orderable_id %></td>
-          <% if defined?(order.orderable.name) %>
-            <td><%= order.orderable.name %></td>
-          <% else %>
-             <td><%= product_name(order.orderable) %></td>
-          <% end %>   
-          <td><%= order.orderable_type%></td>
-          <td><%= order.qty %></td>
-          <% if order.start_time != nil %>
-            <td><%= order.start_time.strftime("%I:%M%p") %></td>
-            <td><%= order.end_time.strftime("%I:%M%p") %></td>
-          <% else %>
-            <td></td><td></td>
-          <% end %>
-          <td><%= order.date %></td>
-          <td><%= order.total_amount %></td>
-          <td><%= link_to 'Show', order %></td>
-          <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+    <tbody>
+      <% @orders.each do |order| %>
+        <% if order.cart == false %>
+          <tr>
+            <td><%= order.id %></td>
+            <% if current_user.role != "buyer" %>
+              <td><%= order.user_id %></td>
+            <% end %>
+            <td><%= order.orderable_id %></td>
+            <% if defined?(order.orderable.name) %>
+              <td><%= order.orderable.name %></td>
+            <% else %>
+              <td><%= product_name(order.orderable) %></td>
+            <% end %>   
+            <td><%= order.orderable_type%></td>
+            <td><%= order.qty %></td>
+            <% if order.start_time != nil %>
+              <td><%= order.start_time.strftime("%I:%M%p") %></td>
+              <td><%= order.end_time.strftime("%I:%M%p") %></td>
+            <% else %>
+              <td></td><td></td>
+            <% end %>
+            <td><%= order.date %></td>
+            <td><%= order.total_amount %></td>
+            <td><%= link_to 'Show', order %></td>
+            <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% else %>  
+  <div class="mx-auto mt-4 text-center text-5xl">
+    No Orders Yet
+  </div>
+<% end %>  

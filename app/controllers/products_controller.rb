@@ -3,20 +3,13 @@ class ProductsController < ApplicationController
   include ProductsHelper
   # GET /products or /products.json
   def index
-    if Category.all.length !=0 && Product.all.length !=0
-      if params[:category] != nil
-        @from_category = params[:category]
-        @pagy,@products = pagy(all_product_variant_by_category(@from_category))
-      else
-        if user_signed_in? and current_user.role =="admin"
-          @pagy,@products = pagy(Product.all)
-        elsif user_signed_in? and current_user.role =="seller"
-          @pagy,@products = pagy(Product.kept.find_by_user_id current_user.id)
-        else
-          @pagy,@products = pagy(Product.kept)
-        end
-      end
-		end
+    if user_signed_in?
+      products, heading =  AllProductService.product_index(params[:category],current_user)
+    else
+      products, heading = AllProductService.product_index(params[:category],nil)
+    end
+    @pagy,@products = pagy(products)
+    @heading = heading
   end
 
   # GET /products/1 or /products/1.json
@@ -78,6 +71,13 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: I18n.t('product_destroyed') }
       format.json { head :no_content }
     end
+  end
+
+  # Restore soft deleted products
+  def restore_soft_deleted
+    product_id = params[:id]
+    Product.where(id: product_id).update(discarded_at: nil)
+    redirect_to products_path
   end
 
   # DELETE /products/1 or /products/1.json

@@ -29,6 +29,10 @@
   border: 1px solid grey;
 }
 
+.welcome-dropdown-item:hover
+{
+  background-color: lightgray!important;
+}
 #search-text
 {
   width: 70%;
@@ -78,11 +82,11 @@
  .number-of-unreaded-notification,.number-of-wishlist
  {
    position: absolute;
-   background-color: red;
+   background-color: #f16565;
    border-radius: 50%;
    color: white;
    font-weight: 600;
-   margin-top: -48px;
+   margin-top: -60px;
    margin-left: 30px;
    height: 26px; 
    padding: 4px 3px 0 3px;
@@ -112,7 +116,6 @@ li {
 
 li a {
   display: block;
-  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -132,9 +135,7 @@ li a {
 .text-red{
   color: red!important;
 }
-li a:hover:not(.active) {
-  background-color: #111;
-}
+
 a:hover,a:visited
 {
   text-decoration: none!important;
@@ -143,7 +144,6 @@ a:hover,a:visited
 {
   background-color: inherit!important;
 }
-
 
 .li  {
   background-color: #04AA6D;
@@ -257,18 +257,16 @@ a:hover,a:visited
   box-shadow: 0 5px 15px 0 rgba(0,0,0,0.15);
   padding:15px;
 }
+
+#welcome-dropdown-items
+{
+  display: none;
+  z-index: 10;
+}
+
 #product-name
 {
   margin-left: -45px;
-}
-.card-img 
-{
-  height: 250px;
-  width: 190px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 }
 .cards
 {

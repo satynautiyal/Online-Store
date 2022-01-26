@@ -1,7 +1,6 @@
 class ProductVariantsController < ApplicationController
   before_action :set_product_variant, only: %i[ show edit update soft_destroy destroy ]
 
-
   # GET /product_variants/1 or /product_variants/1.json
   def show
   end
@@ -26,7 +25,7 @@ class ProductVariantsController < ApplicationController
       if @product_variant.save
         format.html { redirect_to @product_variant, notice: I18n.t('product_variant_created') }
         format.json { render :show, status: :created, location: @product_variant }
-        else
+      else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @product_variant.errors, status: :unprocessable_entity }
       end
@@ -55,6 +54,13 @@ class ProductVariantsController < ApplicationController
       format.html { redirect_to @product_variant.product, notice: I18n.t('product_destroyed') }
       format.json { head :no_content }
     end
+  end
+
+  # Restore soft deleted product_variant
+  def restore_soft_deleted
+    product_variant_id = params[:id]
+    ProductVariant.where(id: product_variant_id).update(discarded_at: nil)
+    redirect_to ProductVariant.find(product_variant_id).product
   end
 
   # DELETE /product_variants/1 or /product_variants/1.json

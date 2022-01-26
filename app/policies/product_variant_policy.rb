@@ -35,4 +35,8 @@ class ProductVariantPolicy < ApplicationPolicy
   def destroy?
     (@user.role == 'admin')
   end
+
+  def restore_soft_deleted?
+    (@user.role == 'admin')
+  end
 end

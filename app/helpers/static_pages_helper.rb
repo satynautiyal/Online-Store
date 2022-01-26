@@ -12,6 +12,7 @@ module StaticPagesHelper
     end
 
     def tabular_sales_data
+        StaticPageService.tabular_sales_data_admin(params[:tabular_sales_group_by])
         if current_user.role == "admin" && Order.all.length != 0
             @tabular_sales_group_by, @tabular_sales_data = StaticPageService.tabular_sales_data_admin(params[:tabular_sales_group_by])
         elsif current_user.role == "seller"

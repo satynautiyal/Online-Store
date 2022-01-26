@@ -21,18 +21,21 @@ Rails.application.routes.draw do
   resources :users do
     member do
       post 'soft_destroy'
+      post 'restore_soft_deleted'
     end
   end
   resources :product_services do
     resources :orders, module: :product_services
     member do
       post 'soft_destroy'
+      post 'restore_soft_deleted'
     end
   end
   resources :products do
     resources :orders, module: :products
     member do
       post 'soft_destroy'
+      post 'restore_soft_deleted'
     end
   end
   
@@ -40,6 +43,7 @@ Rails.application.routes.draw do
     resources :orders, module: :product_variants
     member do
       post 'soft_destroy'
+      post 'restore_soft_deleted'
     end
   end
   resources :orders do

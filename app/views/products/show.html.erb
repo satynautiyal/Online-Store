@@ -1,6 +1,6 @@
 <div class="container mx-auto mt-4">
   <p id="notice"><%= notice %></p>
-
+  <%= link_to 'Add a New Product Variant', new_product_variant_path(pid: @product.id),class: "mb-6 appearance-none block w-full bg-green-600 text-white font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:outline-none focus:bg-green-500 focus:border-gray-500 text-center" if(user_signed_in? && current_user.role != "buyer") %>
   <div class="text-5xl">
     <div class="float-left h-12 mr-4">
       <% if @product.main_image.attached? %>

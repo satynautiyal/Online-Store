@@ -33,13 +33,13 @@
                       <%= category.category_of %>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                      <%= link_to 'Show', category %>
+                      <%= link_to 'Show', category if user_signed_in? && policy(category).show? %>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                      <%= link_to 'Edit', edit_category_path(category) %>
+                      <%= link_to 'Edit', edit_category_path(category) if user_signed_in? && policy(category).edit? %>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                      <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %>
+                      <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } if user_signed_in? && policy(category).destroy? %>
                     </td>
                   </tr>
                 <% end %>

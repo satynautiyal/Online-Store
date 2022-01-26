@@ -1,13 +1,13 @@
 <nav id="navbar" class="bg-white shadow-lg">
 	<div class="mx-auto">
 		<div class="grid grid-cols-12">
-			<div class="col-span-2 float-right">
+			<div class="col-span-2 float-right mb-3">
 				<!-- Website Logo -->
 				<%= link_to root_path,class: "py-2 px-2 float-left hover-bg-inherit" do %>
 					<%= image_tag image_url('logo.png'), alt:"Logo", class:"h-auto w-32 mr-2" %>
 				<% end %>
 			</div>
-			<div class="col-span-6 float- right mb-6">
+			<div class="col-span-6 float- right">
 				<%= form_tag(searches_path, method: :get ,class: "w-full mt-4 mb-5") do %>
 					<div class="search">
 						<div class="search-category">
@@ -22,37 +22,58 @@
 						</div>
 					</div>
 				<% end %>
-				
 			</div>
-			<div class="col-span-2 mt-2">
-				<!-- Primary Navbar items -->
-				<div class="hidden md:flex items-center space-x-1 float-right">
-					<% if user_signed_in? %>
-					<%= link_to "Edit Profile", edit_user_registration_path, class:"hover-bg-inherit nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
-					<% if current_user.role=='admin'%>
-						<%= link_to "Users", users_path, class: "hover-bg-inherit nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
-					<% else%>
-						<%= link_to "Cart", carts_index_path,class: "hover-bg-inherit nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
-						<%= link_to "My Orders", orders_path,class: "hover-bg-inherit nav-item py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" %>
-					<% end%>
-				</div>
-			</div>
-			<div class="col-span-2 mt-2">
+		
+			<div class="col-span-4 mt-2">
+				<% if user_signed_in? %>
+					<!-- Primary Navbar items -->				
+					<div class="hidden md:flex items-center space-x-1 float-left ml-4 h-full">
+						<div class="relative inline-block text-left">
+							<div>
+								<button type="button" id="welcome-dropdown-button" class="shadow-xl inline-flex justify-center w-full bg-green-800 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:bg-green-600" aria-expanded="true" aria-haspopup="true">
+								<%= current_user.name.humanize%>
+								<!-- Heroicon name: solid/chevron-down -->
+								<svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+									<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+								</svg>
+								</button>
+							</div>
+							<div id="welcome-dropdown-items" class="shadow-2xl origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+								<div class="py-1" role="none">
+										<%= link_to edit_user_registration_path, class:"welcome-dropdown-item text-gray-700 block px-4 py-2 text-sm hover:text-black" do%>
+											<i class='fa fa-user text-gray-700' style='font-size:18px'></i>&ensp;&ensp;Edit Profile
+										<% end %>
+										<% if current_user.role == "buyer"%>
+											<%= link_to carts_index_path,class:"welcome-dropdown-item text-gray-700 block px-4 py-2 text-sm hover:text-black" do %>
+												<i class='fa fa-shopping-cart text-gray-700' style='font-size:18px'></i>&ensp;&ensp;Cart
+											<% end %>
+											<%= link_to orders_path,class: "welcome-dropdown-item text-gray-700 block px-4 py-2 text-sm hover:text-black" do%>
+												<i class='fa fa-shopping-bag text-gray-700' style='font-size:15px'></i>&ensp;&ensp;My Orders
+											<% end %>
+										<% end%>
+										<%= link_to destroy_user_session_path, class:"welcome-dropdown-item text-gray-700 block px-4 py-2 text-sm hover:text-black" do%>
+											<i class='fa fa-power-off text-gray-700' style='font-size:16px'></i>&ensp;&ensp;Logout
+										<% end %>
+								</div>
+							</div>
+						</div>
+					</div>
+				<% end %>
 				<!-- Secondary Navbar items -->
-				<div class="hidden md:flex items-center space-x-3 ">
+				<div class="hidden md:flex items-center space-x-3 float-left h-full">
 					<!--Notifications-->
+					<% if user_signed_in? %>
 						<% if current_user.role == "buyer" %>
-							<div class="mr-18"><%= render 'layouts/wishlist' %></div>
+							<div class="mr-18 h-full"><%= render 'layouts/wishlist' %></div>
 						<% end %>
-						<div class="mr-18"><%= render 'layouts/notification' %></div>
-						<%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:" nav-item py-2 px-2 font-medium text-gray-500 rounded hover:bg-red-500 hover:text-white transition duration-300" %>
+						<div class="mr-18 h-full"><%= render 'layouts/notification' %></div>
+						<%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"hover:shadow-xl nav-item py-2 px-2 font-medium text-gray-500 rounded hover:bg-red-500 hover:text-white transition duration-300" %>
 					<% else %>
-					<%= link_to "Login",user_session_path, class: "nav-item py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300" %>
-					<%= link_to "Sign Up", new_user_registration_path, class: "nav-item py-2 px-2 font-medium text-gray-500 rounded hover:bg-green-500 hover:text-white transition duration-300" %>
+					<%= link_to "Login",user_session_path, class: "shadow-xl ml-6 nav-item mt-2 py-2 w-24 text-center font-bold text-white rounded bg-green-800 hover:bg-green-600 hover:text-white transition duration-300" %>
+					<%= link_to "Sign Up", new_user_registration_path, class: "shadow-xl nav-item mt-2 py-2 w-24 text-center font-bold text-white rounded bg-green-800 hover:bg-green-600 hover:text-white transition duration-300" %>
 					<% end %>
 				</div>
 			</div>
-		</div>
 
 			<!-- Mobile menu button -->
 			<div class="md:hidden flex items-center">

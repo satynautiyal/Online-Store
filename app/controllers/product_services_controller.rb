@@ -73,6 +73,13 @@ class ProductServicesController < ApplicationController
     end
   end
 
+  # Restore soft deleted product_service
+  def restore_soft_deleted
+    product_service_id = params[:id]
+    ProductService.where(id: product_service_id).update(discarded_at: nil)
+    redirect_to product_services_path
+  end
+
   # DELETE /product_services/1 or /product_services/1.json
   def destroy
     authorize @product_service

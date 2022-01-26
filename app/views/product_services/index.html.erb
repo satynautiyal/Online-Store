@@ -1,5 +1,5 @@
 <div class="container mx-auto mt-4">
-  <%= link_to 'Add a New Service', new_product_service_path, class: "mb-6 appearance-none block w-full bg-green-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:outline-none focus:bg-green-500 focus:border-gray-500 text-center" if(user_signed_in? && current_user.role != "buyer") %>
+  <%= link_to 'Add a New Service', new_product_service_path, class: "mb-6 appearance-none block w-full bg-green-600 text-white font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:outline-none focus:bg-green-500 focus:border-gray-500 text-center" if(user_signed_in? && current_user.role != "buyer") %>
   <% if ProductService.all.length != 0 %>
     <div class="flex flex-col">
       <div class="grid grid-cols-12 gap-4">
@@ -59,7 +59,9 @@
                   <td>
                     <% if !product_service.discarded? %>
                       <%= link_to 'Delete', soft_destroy_product_service_path(id: product_service.id), method: :post, data: { confirm: 'Are you sure?' },class: "text-red-600 hover:text-delete-600"  if user_signed_in? && policy(product_service).soft_destroy? %>
-                    <% end %>
+                    <% else %>
+                          <%=link_to "Undelete", restore_soft_deleted_product_service_path(id: product_service.id), data: { confirm: "Are you sure?" }, method: :post, class: "bg-inherit text-green-600 hover:text-green-600 visited:text-green-700", data: { confirm: "Are you sure?"} if policy(product).restore_soft_deleted? %>
+                        <% end %>
                     <% if user_signed_in? && current_user.role == "admin" && product_service.discarded? %>
                       <%= link_to 'Permanent Delete', product_service, method: :delete, data: { confirm: 'Are you sure?' },class: "text-red-600 hover:text-delete-600"  if user_signed_in? && policy(product).destroy? %>
                   </td>

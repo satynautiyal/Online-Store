@@ -30,4 +30,6 @@ RUN bundle install
 COPY . .
 
 EXPOSE 3000
-CMD rails server -b 0.0.0.0
+CMD rails server -b 0.0.0.0 -e production
+
+RUN RAILS_ENV=production bundle exec rake assets:precompile

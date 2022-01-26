@@ -1,11 +1,11 @@
-<button type="button" class="mt-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 hover:border-grey-300 rounded" id="button-notification">
+<button type="button" class="bg-white h-full text-gray-800 font-semibold py-2 px-4 hover:border-grey-300 rounded" id="button-notification">
   <i class="fa fa-bell" style="font-size:20px"></i>
 </button>
-<% @all_notification = NotificationBelong.where(user_id: current_user.id).includes(:notification).order('created_at DESC').limit(5)%>
+<% @all_notification = NotificationBelong.where(user_id: current_user.id).includes(:notification).order('created_at DESC').limit(4)%>
 <% if @all_notification.length != 0 %>
-    <div id="notification-drop-down" style="display:none">
+    <div id="notification-drop-down" sclass="shadow-2xl" style="display:none">
         <div id="notification-drop-down-body">
-          <div class="notification-header text-center">Notifications</div>
+          <div class="notification-header text-center mt-5">Notifications</div>
             <% @all_notification.each do |notification| %>
                 <!--Redirection Path-->
                 <% path_to_redirect= notification.notification.notifiable_type %>

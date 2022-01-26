@@ -1,11 +1,29 @@
 class OrderService
+
+    def self.order_index(user_id, user_role)
+        if user_role == "buyer"
+            @orders = Order.includes(:orderable).where(user_id: user_id)
+        elsif user_role == "seller"
+            @orders = OrderService.seller_sales_data(user_id)
+        else
+            @orders = Order.includes(:orderable).all
+        end
+    end
+
+    def self.seller_sales_data(user)
+        seller = User.find(user)
+        seller_tabular_sales_data = seller.product_variants.includes(:orders).map {|p| p.orders} << 
+                                    seller.product_services.map {|s| s.orders}
+        return seller_tabular_sales_data[1]
+    end
     
     def self.create_order(pressed_button,user,order)
         if order.orderable_type = "ProductVariant"
-            order.qty > order.orderable.quantity
-            notice = "We do'nt have that much quantity"
-            redirection_path = "product_variant_path(id: #{order.orderable_id})"
-            return order, notice, redirection_path
+            if order.qty > order.orderable.quantity
+                notice = I18n.t('not_enough_quantity_in_stock')
+                redirection_path = "product_variant_path(id: #{order.orderable_id})"
+                return order, notice, redirection_path
+            end
         end
         if pressed_button=="Add To Cart"
             redirection_path = "carts_index_path"

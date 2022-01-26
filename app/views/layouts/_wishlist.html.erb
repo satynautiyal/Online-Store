@@ -1,5 +1,5 @@
-<button type="button" class="mt-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 hover:border-grey-300 rounded" id="button-wishlist">
-  <i class="fa fa-gift" style="font-size:25px;color:red"></i>
+<button type="button" class="h-full bg-white text-gray-800 font-semibold py-2 px-4 hover:border-grey-300 rounded" id="button-wishlist">
+  <i class="fa fa-gift" style="font-size:25px"></i>
 </button>
 <% @wishlist_products = Wishlist.where("user_id = #{current_user.id}").order('created_at DESC').limit(5)%>
 <% @wishlist_products.each do |wishlist| 

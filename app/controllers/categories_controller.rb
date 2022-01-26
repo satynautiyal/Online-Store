@@ -9,11 +9,13 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1 or /categories/1.json
   def show
+    authorize @category
   end
 
   # GET /categories/new
   def new
     @category = Category.new
+    authorize @category
   end
 
   # GET /categories/1/edit
@@ -23,6 +25,7 @@ class CategoriesController < ApplicationController
   # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
+    authorize @category
     respond_to do |format|
       if @category.save
         format.html { redirect_to @category, notice: I18n.t('category_created') }
@@ -36,6 +39,7 @@ class CategoriesController < ApplicationController
 
   # PATCH/PUT /categories/1 or /categories/1.json
   def update
+    authorize @category
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category, notice: I18n.t('category_updated') }
@@ -59,6 +63,7 @@ class CategoriesController < ApplicationController
   
   # DELETE /categories/1 or /categories/1.json
   def destroy
+    authorize @category
     @category.destroy
     respond_to do |format|
       format.html { redirect_to categories_url, notice: I18n.t('category_destroyed') }

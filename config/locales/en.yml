@@ -69,6 +69,7 @@ en:
   order_created: "Order was successfully placed."
   add_cart: "Added to Cart"
   already_in_cart: "Already in cart"
+  not_enough_quantity_in_stock: "We do'nt have that much quantity"
   #For User
   user_destroyed: "User was successfully destroyed."
   sign_in_first: "You need to Sign in first"

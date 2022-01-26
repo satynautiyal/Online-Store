@@ -1,4 +1,4 @@
-<div class="sub-nav w-full bg-green-900 text-white py-4 px-2 nav-item font-semibold text-white transition duration-300" style="margin-top:-10px; height:45px">
+<div class="sub-nav w-full bg-green-900 text-white py-4 px-2 nav-item shadow-lg font-semibold text-white transition duration-300" style="height:45px">
     <% if !user_signed_in? || current_user.role == "buyer" %>
         <% Category.all.each do |category| %>
             <div class="float-left  px-4 ">
@@ -7,19 +7,22 @@
         <% end %>
     <% elsif user_signed_in? && (current_user.role == "admin" || current_user.role == "seller") %>
         <div class="float-left  px-4 ">
-            <%= link_to "Products", products_path, class: "text-white bg-inherit" %>
+            <%= link_to "All Categories", categories_path, class: "text-white bg-inherit" %>
         </div>
         <div class="float-left  px-4 ">
-            <%= link_to "Services", product_services_path, class: "text-white bg-inherit" %>
+            <%= link_to "Mange Products", products_path, class: "text-white bg-inherit" %>
         </div>
         <div class="float-left  px-4 ">
-            <%= link_to "Categories", categories_path, class: "text-white bg-inherit" %>
+            <%= link_to "Manage Services", product_services_path, class: "text-white bg-inherit" %>
+        </div>
+        <div class="float-right  px-4 ">
+            <%= link_to "Total Orders", orders_path, class: "text-white bg-inherit" %>
         </div>
     <% end %>
     
     <% if user_signed_in? && current_user.role == "admin" %>
-        <div class="float-left  px-4 ">
-            <%= link_to "Users", users_path, class: "text-white bg-inherit" %>
+        <div class="float-right  px-4">
+            <%= link_to "Total Users", users_path, class: "text-white bg-inherit" %>
         </div>
     <% end %>
 </div>

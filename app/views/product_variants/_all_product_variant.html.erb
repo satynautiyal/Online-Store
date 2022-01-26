@@ -1,5 +1,5 @@
 <div class="container mt-14  mx-auto" style="width:75vw; margin-auto">
-  <% @product_variants.each do |product_variant| %>
+  <% @product_variants.includes(:main_image_attachment).each do |product_variant| %>
     <div class="grid grid-cols-12 gap-3 mx-auto">
       <div class ="col-span-4  mx-auto" >
       <%= link_to product_variant do  %>
@@ -63,8 +63,12 @@
         <% if user_signed_in? && current_user.role == "admin" && product_variant.discarded? %>
           <div class="text-center w-full  text-3xl head text-red-500">Deleted</div>
         <% end %>
+        <% if product_variant.discarded? %>
+          <%=link_to "Undelete", restore_soft_deleted_product_variant_path(id: product_variant.id), data: { confirm: "Are you sure?" }, method: :post, class: "bg-inherit text-green-600 hover:text-green-600 visited:text-green-700", data: { confirm: "Are you sure?"} if policy(product_variant).restore_soft_deleted? %>
+        <% else %>
+          <%= link_to 'Delete', soft_destroy_product_variant_path(id: product_variant.id), method: :post, data: { confirm: 'Are you sure?'},class: "text-red" if user_signed_in? && policy(product_variant).soft_destroy? %>
+        <% end %>
       <% end %>
-      <%= link_to 'Delete', soft_destroy_product_variant_path(id: product_variant.id), method: :post, data: { confirm: 'Are you sure?'},class: "text-red" if user_signed_in? && policy(product_variant).soft_destroy? %>
       <br>
       <%= link_to 'Permanent Delete', product_variant, method: :delete, data: { confirm: 'Are you sure?'},class: "text-red" if user_signed_in? && policy(product_variant).destroy? %>
       </div>
@@ -72,7 +76,4 @@
     <hr>
     <br>
   <% end %>
-  <button class="w-full">
-    <%= link_to 'New Product Variant', new_product_variant_path(pid: @product.id),class: "appearance-none w-full mt-2 bg-green-600 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-green-500 focus:opacity-70 focus:outline-none focus:border-gray-500 text-white text-center" if(user_signed_in? && current_user.role != "buyer") %>
-  </button>
 </div>

@@ -1,14 +1,9 @@
 class OrdersController < ApplicationController
-  
-  include OrdersHelper
-  #To update data with js_file otherwise it will give error for authencity token as we are calling update query from js file
-  #skip_forgery_protection
-
   before_action :set_order, only: %i[ show edit update destroy ]
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.includes(:orderable).where(user_id: current_user)
+    @orders= OrderService.order_index(current_user.id, current_user.role)
   end
 
   # GET /orders/1 or /orders/1.json

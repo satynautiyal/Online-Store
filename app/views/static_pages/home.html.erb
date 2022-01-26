@@ -3,7 +3,7 @@
     <div id="sales_graph_data">
       <%= render 'static_pages/sales_graph_data' %>
     </div>
-    <div id="tabular_data">
+    <div id="sales_tabular_data">
       <%= render 'static_pages/sales_tabular_data' %>
     </div>
     <div id="users_graph_data">
@@ -14,7 +14,7 @@
     <div id="sales_graph_data">
       <%= render 'static_pages/sales_graph_data' %>
     </div>
-    <div id="tabular_data">
+    <div id="sales_tabular_data">
       <%= render 'static_pages/sales_tabular_data' %>
     </div>
 
@@ -28,20 +28,21 @@
       </div>
       <div class="w-full mx-auto">
         <div class="products slider w-full mx-auto">
-          <% @most_popular.each do |most_popular| %>
-            <% product_variant=ProductVariant.find_by_id most_popular.product_variant_id %>
-            <%= link_to product_variant do %>
-              <div class= "cards mx-auto">
-                <% if product_variant.main_image.attached? %>
-                  <%= image_tag product_variant.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-                <% else %>
-                  <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
-                <% end %>
-                <div class="card-body mt-2 mb-2 text-center">
-                  <%= product_variant.product.name %>
+          <% unless @most_popular.nil? %>
+            <% @most_popular.each do |product_variant| %>
+              <%= link_to product_variant,class: "bg-inherit" do %>
+                <div class= "cards mx-auto">
+                  <% if product_variant.main_image.attached? %>
+                    <%= image_tag product_variant.main_image,class: "h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+                  <% else %>
+                    <%= image_tag image_url("no_image.jpg"), class:"h-full", style: "height: 245px;width: auto;border-radius: 4px;margin: auto;margin-top: 7px;" %>
+                  <% end %>
+                  <div class="card-body mt-2 mb-2 text-center">
+                    <%= product_variant.product.name %>
+                  </div>
                 </div>
-              </div>
-            <% end %>
+              <% end %>
+            <% end %> 
           <% end %>
         </div>
       </div>
@@ -53,9 +54,8 @@
       </div>
       <div class="w-full mx-auto">
         <div class="products slider w-full mx-auto">
-          <% @trending.each do |trending| %>
-            <% product_variant=ProductVariant.find_by_id trending.orderable_id %>
-            <%= link_to product_variant do %>
+          <% @trending.each do |product_variant| %>
+            <%= link_to product_variant,class: "bg-inherit" do %>
               <div class= "cards mx-auto" style="height: 299.5px;width: 200px">
                 <div class="card-img mx-auto">
                     <% if product_variant.main_image.attached? %>

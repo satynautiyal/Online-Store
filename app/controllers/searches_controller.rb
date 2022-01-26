@@ -37,7 +37,6 @@ class SearchesController < ApplicationController
   # POST /searches or /searches.json
   def create
     @search = Search.new(search_params)
-
     respond_to do |format|
       if @search.save
         format.html { redirect_to @search, notice: "Search was successfully created." }
