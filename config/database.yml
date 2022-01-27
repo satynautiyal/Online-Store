@@ -17,6 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host: db
+  username: postgres
   password: password
   pool: 5
   
@@ -82,5 +84,3 @@ test:
 production:
   <<: *default
   database: Online_strore_production
-   host: db
-  # username: postgres
