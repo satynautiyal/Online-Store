@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: Online_strore_production
-  # host: db
+   host: db
   # username: postgres
