@@ -5,7 +5,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
     ports:
-      - "5430:5430"
+      - "5432:5432"
 
   redis:
     image: redis:latest
