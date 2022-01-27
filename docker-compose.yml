@@ -39,6 +39,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200 
       - REDIS_URL=redis://redis:6379
     volumes:
       - .:/usr/src/app
