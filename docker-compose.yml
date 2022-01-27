@@ -6,6 +6,8 @@ services:
       - POSTGRES_PASSWORD=password
     ports:
       - "5430:5430"
+    volumes:
+      - dbdata:/var/run/postgressql/data
 
   redis:
     image: redis:latest
@@ -24,3 +26,6 @@ services:
     depends_on:
       - db
       - redis
+
+volumes:
+  dbdata:
