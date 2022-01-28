@@ -16,9 +16,12 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.16.3
     container_name: elasticsearch
     ports:
-      - 127.0.0.1:9200:9200
+      - 9200:9200
+      - 9300:9300
     environment:
-      ES_JAVA_OPTS: '-Xms256m -Xmx256m'
+      ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+      network.bind_host: 0.0.0.0
+      network.host: 0.0.0.0
       discovery.type: single-node
 
   web:
@@ -27,6 +30,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - ELASTICSEARCH_URL=localhost:9200 
       - REDIS_URL=redis://redis:6379
     volumes:
       - .:/usr/src/app
