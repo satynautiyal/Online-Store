@@ -27,6 +27,7 @@ COPY Gemfile* ./
 
 RUN yarn install
 RUN bundle install
+
 COPY . .
 
 EXPOSE 3000
