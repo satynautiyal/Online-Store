@@ -20,8 +20,8 @@ services:
       - 9300:9300
     environment:
       ES_JAVA_OPTS: '-Xms256m -Xmx256m'
-      network.bind_host: 0.0.0.0
-      network.host: 0.0.0.0
+      network.bind_host: localhost
+      network.host: localhost
       discovery.type: single-node
   web:
     build: .
